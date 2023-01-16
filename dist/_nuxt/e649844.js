@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[71],{806:function(t,n,o){"use strict";o.r(n);var c={created:function(){this.$auth.loggedIn?"Admin"==this.$auth.user.account_type?location="/":location="/customer/transaction":location="/"}},e=o(95),component=Object(e.a)(c,(function(){return(0,this._self._c)("div")}),[],!1,null,null,null);n.default=component.exports}}]);
