@@ -1,54 +1,18 @@
 <template>
   <v-sheet class="pa-10" color="">
-    <v-dialog v-model="isCheckout" width="500">
+    <v-dialog v-model="view_status" width="800">
       <v-card class="pa-10">
-        <div>
-          <div class="text-h5">Contact Information:</div>
-          <div>Address: {{ $auth.user.address }}</div>
-          <div>Contact Number: {{ $auth.user.contact_number }}</div>
-          <div>
-            Fullname: {{ $auth.user.firstname }} {{ $auth.user.lastname }}
-          </div>
-        </div>
-        <div v-for="n in register.cart" :key="n">
-          <div>
-            <v-row>
-              <v-col cols="auto">
-                <v-img :src="n.image" height="100" width="100"> </v-img>
-              </v-col>
-              <v-col>
-                <div>{{ n.product_name }}</div>
-                <div>
-                  {{ n.description }}
-                </div>
-                <div>{{ n.quantity }}x Quantity</div>
-                <div>Php {{ n.price }}</div>
-              </v-col>
-            </v-row>
-          </div>
-        </div>
-        <div class="py-5">
-          <v-divider></v-divider>
-        </div>
-        Total Price: Php {{ total_price }}
-
-        <div>
-          <div class="pt-4">
-            <v-btn color="grey" dark width="100%" @click="isCheckout = false"
-              >Cancel</v-btn
-            >
-          </div>
-          <div class="pt-4">
-            <v-btn color="secondary" width="100%" @click="submitHandler"
-              >Pay COD</v-btn
-            >
-            <div class="pt-4">
-              <v-btn color="secondary" width="100%" @click="paymentMethod"
-                >Pay Via Paypal</v-btn
-              >
-            </div>
-          </div>
-        </div>
+        <v-stepper alt-labels>
+          <v-stepper-header>
+            <v-stepper-step step="1" complete> Pending </v-stepper-step>
+            <v-divider></v-divider>
+            <v-stepper-step step="2" :complete="selectedStatus=='To Ship' || selectedStatus=='To Receive' || selectedStatus=='Delievered'"> Approved </v-stepper-step>
+            <v-divider></v-divider>
+            <v-stepper-step step="3" :complete="selectedStatus=='To Receive' || selectedStatus=='Delievered'">To Received</v-stepper-step>
+            <v-divider></v-divider>
+            <v-stepper-step step="4" :complete="selectedStatus=='Delievered'">Delivered</v-stepper-step>
+          </v-stepper-header>
+        </v-stepper>
       </v-card>
     </v-dialog>
     <v-dialog width="900" v-model="isAdd">
@@ -167,15 +131,21 @@
     <div class="black--text text-h5 pb-5">
       <v-row>
         <v-col>
-          <b>Cart</b>
+          <b>My Purchased</b>
         </v-col>
+        <!-- <v-col align="end">
+          <v-btn
+            color="secondary"
+            @click="isAdd = true"
+            outlined
+            class="rounded-lg"
+            >Add Product</v-btn
+          >
+        </v-col> -->
       </v-row>
     </div>
     <div>
       <v-card class="pa-16" elevation="1" color="white">
-        <div>
-          {{register.cart.length}} Item/s Selected
-        </div>
         <div class="pt-10">
           <v-text-field
             hide-details
@@ -188,10 +158,8 @@
         <v-data-table
           :search="search"
           class="pa-5"
-          show-select
-          v-model="register.cart"
           :headers="headers"
-          :items="my_cart"
+          :items="myOrder"
           :loading="isLoading"
         >
           <template v-slot:loading>
@@ -208,9 +176,6 @@
           <template #[`item.total_price`]="{ item }">
             {{ item.quantity * item.price }}
           </template>
-          <template #[`item.quantity`]="{ item }">
-          <v-icon @click="plus(item)">mdi-plus</v-icon>  <b>{{ item.quantity}}</b><v-icon color="red" @click="minus(item)">mdi-minus</v-icon> 
-          </template>
           <template #[`item.image`]="{ item }">
             <v-img :src="item.image" height="100" width="100"></v-img>
           </template>
@@ -222,7 +187,7 @@
                 </v-btn>
               </template>
               <v-list dense>
-                <v-list-item @click.stop="edit(item, '')">
+                <v-list-item @click.stop="viewDetails(item)">
                   <v-list-item-content>
                     <v-list-item-title>View</v-list-item-title>
                   </v-list-item-content>
@@ -279,11 +244,6 @@
             </v-menu>
           </template>
         </v-data-table>
-        <div class="pt-4">
-          <v-btn color="secondary" width="100%" @click="checkout"
-            >Proceed to Checkout</v-btn
-          >
-        </div>
       </v-card>
     </div>
     <div></div>
@@ -305,15 +265,13 @@ var cloneDeep = require("lodash.clonedeep");
 export default {
   components: {},
   created() {
-    this.$store.dispatch("cart/view").then(res=>{
-       this.my_cart = cloneDeep(this.cart_data) 
-    }); 
+    this.$store.dispatch("transaction/view");
   },
   computed: {
-    ...mapState("cart", ["cart_data"]),
+    ...mapState("transaction", ["transaction_data"]),
     myOrder() {
-      return this.cart_data.filter(
-        (data) => data.user_id == this.$auth.user.id
+      return this.transaction_data.filter(
+        (data) => data.user_id == this.$auth.user.id && data.status == 'Completed'
       );
     },
     filteredData() {
@@ -321,122 +279,9 @@ export default {
     },
   },
   methods: {
-    minus(item){
-      var a = cloneDeep(this.cart_data)
-      for(let x in this.my_cart){
-        if(this.my_cart[x].id==item.id){
-          this.my_cart[x].quantity = this.my_cart[x].quantity - 1
-        }
-      }
-   
-    },
-    plus(item){
-      for(let x in this.my_cart){
-        if(this.my_cart[x].id==item.id){
-          this.my_cart[x].quantity = this.my_cart[x].quantity + 1
-        }
-      }
-    },
-    async paymentMethod() {
-      try {
-        var otpValue = Math.random().toString(6).slice(2);
-        for (let key in this.register.cart) {
-          this.register.cart[key]["payment_mode"] = "Paypal";
-          this.register.cart[key]["status"] = "Pending";
-          this.register.cart[key]['transaction_id'] = otpValue
-        }
-        this.$store
-          .dispatch("transaction/bulk", this.register)
-          .then((res) => {});
-      } catch (error) {}
-      var qs = require("qs");
-
-      var data = qs.stringify({
-        grant_type: "client_credentials",
-      });
-      this.$axios
-        .post("https://api-m.sandbox.paypal.com/v1/oauth2/token", data, {
-          headers: {},
-          auth: {
-            username:
-              "AfhkPCUFnmyofuwN3OSicO7Z83gKoXlDUmba7meh3GewvB6eC1nQ74JrMCSANpYyUudyjEvZBoda-5q-",
-            password:
-              "EFmDE0yWqqoyTN6LuLgF7Wn0j2iZGq8gSkSOGzaNlfHKZy2upl2FkbriFlgk55_SGmFSvIVgmVf9cXdk",
-          },
-        })
-        .then((res) => {
-          console.log(res.data);
-          // alert(res.data["access_token"]);
-          var params1 = {
-            intent: "sale",
-            payer: { payment_method: "paypal" },
-            transactions: [
-              {
-                amount: {
-                  total: "25.00",
-                  currency: "USD",
-                  details: { subtotal: "25.00" },
-                },
-                description: "This is the payment transaction description.",
-                custom: "EBAY_EMS_90048630024435",
-                invoice_number: "48787582685",
-                payment_options: {
-                  allowed_payment_method: "INSTANT_FUNDING_SOURCE",
-                },
-                soft_descriptor: "ECHI5786786",
-                item_list: {
-                  items: [
-                    {
-                      name: "handbag",
-                      description: "Black color hand bag",
-                      quantity: "1",
-                      price: "25.00",
-                      sku: "product34",
-                      currency: "USD",
-                    },
-                  ],
-                  shipping_address: {
-                    recipient_name: "Hello World",
-                    line1: "4thFloor",
-                    line2: "unit#34",
-                    city: "SAn Jose",
-                    country_code: "US",
-                    postal_code: "95131",
-                    phone: "011862212345678",
-                    state: "CA",
-                  },
-                },
-              },
-            ],
-            note_to_payer: "Contact us for any questions on your order.",
-            redirect_urls: {
-              return_url: "http://10.0.2.2:8000/api/v1",
-              cancel_url: "https://example.com",
-            },
-          };
-          var url = "https://api-m.sandbox.paypal.com/v1/payments/payment";
-          var headers_payment = {
-            Accept: "application/json",
-            "Accept-Language": "en_US",
-            Authorization: `Bearer ${res.data["access_token"]}`,
-            "Content-Type": "application/json",
-          };
-          var b = this.$axios
-            .post(url, params1, {
-              headers: headers_payment,
-            })
-            .then((res) => {
-              location = res.data["links"][1]["href"];
-            });
-        });
-    },
-    checkout() {
-      var a = 0;
-      this.register.cart.filter((data) => {
-        a = a + data.price * data.quantity;
-      });
-      this.total_price = a;
-      this.isCheckout = true;
+    viewDetails(item) {
+      this.selectedStatus = item.status;
+      this.view_status = true;
     },
     updateSize(operation) {
       if (operation == "+") {
@@ -451,17 +296,30 @@ export default {
     },
     async submitHandler() {
       try {
-        var otpValue = Math.random().toString(6).slice(2);
-        for (let key in this.register.cart) {
-          this.register.cart[key]["payment_mode"] = "COD";
-          this.register.cart[key]["status"] = "Pending";
-          this.register.cart[key]['transaction_id'] = otpValue
+        let form_data = new FormData();
+        if (this.file != null && this.file != "") {
+          form_data.append("image", this.file);
         }
-        this.$store.dispatch("transaction/bulk", this.register).then((res) => {
-          alert("Successfully Added");
-          location.reload();
+        form_data.append("size", this.size);
+        form_data.append("price", this.price);
+        form_data.append("product_name", this.register.product_name);
+        form_data.append("category", this.register.category);
+        form_data.append("price", this.register.price);
+        form_data.append("quantity", this.register.quantity);
+        form_data.append("description", this.register.description);
+        await this.$store.dispatch("product/add", form_data).then((res) => {
+          this.$store.dispatch("size/add", {
+            size: this.size,
+            price: this.price,
+            product_id: res.id,
+          });
         });
-      } catch (error) {}
+        this.isAdd = false;
+        alert("Successfully Added!");
+        location.reload();
+      } catch (error) {
+        alert(error);
+      }
     },
     onFileUpload(e) {
       this.file = e;
@@ -537,13 +395,13 @@ export default {
   },
   data() {
     return {
-      my_cart:[],
-      total_price: 0,
-      isCheckout: false,
+      selectedStatus: "Pending",
+      view_status: false,
       size_counter: [],
       isAdd: false,
       register: {
-        cart: [],
+        size: [],
+        price: [],
       },
       addForm: false,
       isConfirmationApprove: false,
@@ -572,12 +430,13 @@ export default {
         { text: "ID", value: "id" },
         { text: "Product Name", value: "product_name" },
         { text: "Price", value: "price" },
-        { text: "Size", value: "variant" },
+        { text: "Size", value: "size" },
         { text: "Quantity", value: "quantity" },
+        { text: "Status", value: "status" },
         { text: "Total Price", value: "total_price" },
         { text: "Image", value: "image" },
-        // { text: "Address", value: "address" },
-        // { text: "Actions", value: "opt" },
+        { text: "Payment Method", value: "payment_mode" },
+        { text: "Actions", value: "opt" },
         ,
       ],
     };

@@ -18,6 +18,7 @@ const actions = {
           "/cart/"
         );
         commit("SET_EVENT", response);
+        return ''
       },
   };
   

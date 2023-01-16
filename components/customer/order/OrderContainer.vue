@@ -2,15 +2,20 @@
   <v-sheet class="pa-10" color="">
     <v-dialog v-model="view_status" width="800">
       <v-card class="pa-10">
+        <div class="py-10">
+          Tracking #:{{selectedItem.tracking_id}}
+        </div>
         <v-stepper alt-labels>
           <v-stepper-header>
-            <v-stepper-step step="1" complete> Pending </v-stepper-step>
+            <v-stepper-step step="1" complete> Confirm </v-stepper-step>
             <v-divider></v-divider>
-            <v-stepper-step step="2" :complete="selectedStatus=='To Ship' || selectedStatus=='To Receive' || selectedStatus=='Delievered'"> Approved </v-stepper-step>
+            <v-stepper-step step="2" :complete="selectedStatus=='Picked up' || selectedStatus=='To Receive' || selectedStatus=='Delievered' || selectedStatus=='Completed'"> Picked up </v-stepper-step>
             <v-divider></v-divider>
-            <v-stepper-step step="3" :complete="selectedStatus=='To Receive' || selectedStatus=='Delievered'">To Received</v-stepper-step>
+            <v-stepper-step step="3" :complete="selectedStatus=='To Receive' || selectedStatus=='Delievered' || selectedStatus=='Completed'">To Receive</v-stepper-step>
             <v-divider></v-divider>
-            <v-stepper-step step="4" :complete="selectedStatus=='Delievered'">Delivered</v-stepper-step>
+            <v-stepper-step step="4" :complete="selectedStatus=='Delievered' || selectedStatus=='Completed'">Delivered</v-stepper-step>
+            <v-divider></v-divider>
+            <v-stepper-step step="5" :complete="selectedStatus=='Completed'">Completed</v-stepper-step>
           </v-stepper-header>
         </v-stepper>
       </v-card>
@@ -192,54 +197,6 @@
                     <v-list-item-title>View</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
-                <v-list-item
-                  @click.stop="statusConfirmation(item, 'Approved')"
-                  v-if="item.status == 'Pending'"
-                >
-                  <v-list-item-content>
-                    <v-list-item-title>Approve</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item
-                  @click.stop="statusConfirmation(item, 'Declined')"
-                  v-if="item.status == 'Pending'"
-                  >>
-                  <v-list-item-content>
-                    <v-list-item-title>Decline</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item
-                  @click.stop="editItem(item, 'For Review')"
-                  v-if="status == 'Pending'"
-                >
-                  <v-list-item-content>
-                    <v-list-item-title>For Review</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item
-                  @click.stop="editItem(item, 'Summon')"
-                  v-if="status == 'For Review'"
-                >
-                  <v-list-item-content>
-                    <v-list-item-title>Summon</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item
-                  @click.stop="editItem(item, 'Settled')"
-                  v-if="status == 'Summon'"
-                >
-                  <v-list-item-content>
-                    <v-list-item-title>Settled</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item
-                  @click.stop="editItem(item, 'Dismissed')"
-                  v-if="status == 'Summon'"
-                >
-                  <v-list-item-content>
-                    <v-list-item-title>Dismissed</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
               </v-list>
             </v-menu>
           </template>
@@ -281,6 +238,7 @@ export default {
   methods: {
     viewDetails(item) {
       this.selectedStatus = item.status;
+      this.selectedItem = item
       this.view_status = true;
     },
     updateSize(operation) {

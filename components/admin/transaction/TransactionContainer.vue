@@ -1,5 +1,118 @@
 <template>
   <v-sheet class="pa-10" color="">
+    <VueHtml2pdf
+      :show-layout="false"
+      :float-layout="true"
+      :enable-download="true"
+      :paginate-elements-by-height="1400"
+      filename="myPDF"
+      :pdf-quality="2"
+      :manual-pagination="false"
+      pdf-format="a4"
+      pdf-orientation="portrait"
+      pdf-content-width="800px"
+      ref="html2Pdf"
+    >
+      <v-section slot="pdf-content">
+        <div v-if="isGenerate" style="padding:16px">
+          <v-row>
+            <v-col>
+              <div>
+              Full Name:  {{selectedItem.users.firstname}}  {{selectedItem.users.lastname}}
+              </div>
+              <div>
+              Payment Method:  {{selectedItem.payment_method}}
+              </div>
+              <div>
+               Email: {{selectedItem.users.email}}
+              </div>
+            </v-col>
+            <v-col align="end">
+              <div>
+             Address:  {{selectedItem.users.address}}
+              </div>
+              <div>
+               Date Ordered: {{selectedItem.date_created}}
+              </div>
+            </v-col>
+          </v-row>
+          <div class="padding-top:20px;padding-bottom:20px">
+            <v-divider></v-divider>
+          </div>
+          <div>
+            <v-data-table
+          :search="search"
+          class="pa-5"
+          :headers="headers_receipt"
+          :items="[selectedItem]"
+          :loading="isLoading"
+        >
+          <template v-slot:loading>
+            <v-skeleton-loader
+              v-for="n in 5"
+              :key="n"
+              type="list-item-avatar-two-line"
+              class="my-2"
+            ></v-skeleton-loader>
+          </template>
+           <template #[`item.total_price`]="{ item }">
+            {{ item.quantity * item.price}}
+          </template>
+          <template #[`item.is_active`]="{ item }">
+            {{ item.is_active ? "Yes" : "No" }}
+          </template>
+          <template #[`item.image`]="{ item }">
+            <v-img :src="item.image" height="100" width="100"></v-img>
+          </template>
+          <template #[`item.opt`]="{ item }">
+            <v-menu offset-y z-index="1">
+              <template v-slot:activator="{ attrs, on }">
+                <v-btn icon v-bind="attrs" v-on="on">
+                  <v-icon>mdi-dots-horizontal</v-icon>
+                </v-btn>
+              </template>
+              <v-list dense>
+                <v-list-item @click.stop="statusUpdate(item, 'To Ship')">
+                  <v-list-item-content>
+                    <v-list-item-title>To Ship</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                 <v-list-item @click.stop="statusUpdate(item, 'Picked up')">
+                  <v-list-item-content>
+                    <v-list-item-title>Picked up</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                 <v-list-item @click.stop="statusUpdate(item, 'To Receive')">
+                  <v-list-item-content>
+                    <v-list-item-title>To Receive</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item @click.stop="statusUpdate(item, 'Delievered')">
+                  <v-list-item-content>
+                    <v-list-item-title>Delievered</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item @click.stop="statusUpdate(item, 'Completed')">
+                  <v-list-item-content>
+                    <v-list-item-title>Completed</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                 <v-list-item @click.stop="generateReceipt(item)">
+                  <v-list-item-content>
+                    <v-list-item-title>Print Receipt</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </template>
+        </v-data-table>
+        <div align="end">
+          Total Price : {{selectedItem.quantity * selectedItem.price}}
+        </div>
+          </div>
+        </div>
+      </v-section>
+    </VueHtml2pdf>
     <v-dialog v-model="view_status" width="800">
       <v-card class="pa-10">
         <v-stepper alt-labels>
@@ -184,11 +297,29 @@
                     <v-list-item-title>To Ship</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
-                <v-list-item
-                  @click.stop="statusUpdate(item, 'Delievered')"
-                >
+                 <v-list-item @click.stop="statusUpdate(item, 'Picked up')">
+                  <v-list-item-content>
+                    <v-list-item-title>Picked up</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                 <v-list-item @click.stop="statusUpdate(item, 'To Receive')">
+                  <v-list-item-content>
+                    <v-list-item-title>To Receive</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item @click.stop="statusUpdate(item, 'Delievered')">
                   <v-list-item-content>
                     <v-list-item-title>Delievered</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item @click.stop="statusUpdate(item, 'Completed')">
+                  <v-list-item-content>
+                    <v-list-item-title>Completed</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                 <v-list-item @click.stop="generateReceipt(item)">
+                  <v-list-item-content>
+                    <v-list-item-title>Print Receipt</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-list>
@@ -203,6 +334,7 @@
 
 <script>
 import Vue from "vue";
+import VueHtml2pdf from "vue-html2pdf";
 import { mapState, mapActions } from "vuex";
 // import DialogNotification from "../../general/DialogNotification.vue";
 // import Add from "./Add.vue";
@@ -214,7 +346,7 @@ Vue.use(VueToastr, {
 
 var cloneDeep = require("lodash.clonedeep");
 export default {
-  components: {},
+  components: {VueHtml2pdf},
   created() {
     this.$store.dispatch("transaction/view");
   },
@@ -225,6 +357,11 @@ export default {
     },
   },
   methods: {
+    generateReceipt(item){
+      this.selectedItem = item;
+      this.isGenerate = true;
+      this.$refs.html2Pdf.generatePdf();
+    },  
     viewDetails(item) {
       this.selectedStatus = item.status;
       this.view_status = true;
@@ -343,6 +480,8 @@ export default {
   },
   data() {
     return {
+      isGenerate:false,
+      selectedItem:{},
       selectedStatus:'Pending',
       view_status:false,
       size_counter:[],
@@ -384,6 +523,14 @@ export default {
         { text: "Status", value: "status" },
         // { text: "Address", value: "address" },
         { text: "Actions", value: "opt" },
+        ,
+      ],
+      headers_receipt: [
+        { text: "ID", value: "id" },
+        { text: "Product Name", value: "product_name" },
+        { text: "Price", value: "price" },
+        { text: "Quantity", value: "quantity" },
+        { text: "Total Price", value: "total_price" },
         ,
       ],
     };

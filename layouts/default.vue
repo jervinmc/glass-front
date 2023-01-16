@@ -82,9 +82,30 @@
             ? 'px-10 pointer secondary--text'
             : 'px-10 pointer white--text'
         "
-        @click="pushRoute('route')"
+        @click="pushRoute('')"
       >
         Home
+      </div>
+      <div
+      v-if="$auth.user.account_type == 'Admin'"
+        :class="
+          $route.name == 'redeem'
+            ? 'px-10 pointer secondary--text'
+            : 'px-10 pointer white--text'
+        "
+        @click="routeLink('admin/dashboard')"
+      >
+        My Admin
+      </div>
+       <div
+        :class="
+          $route.name == 'redeem'
+            ? 'px-10 pointer secondary--text'
+            : 'px-10 pointer white--text'
+        "
+        @click="routeLink('profile')"
+      >
+        My Account
       </div>
       <div class="px-10 pointer">
         <v-btn dark depressed color="secondary" @click="$auth.logout()">
@@ -245,6 +266,9 @@ export default {
     pushRoute(link) {
       window.location.href = `/${link}`;
     },
+    routeLink(link) {
+      location = `/${link}`;
+    },
     goIndex() {
       window.location.href = "/";
     },
@@ -274,13 +298,18 @@ export default {
         },
         {
           icon: "mdi-chart-bubble",
-          title: "Product",
+          title: "Shop",
           to: "/customer/product",
         },
         {
           icon: "mdi-chart-bubble",
           title: "Cart",
           to: "/customer/cart",
+        },
+        {
+          icon: "mdi-chart-bubble",
+          title: "My Purchased",
+          to: "/customer/complete",
         },
       ],
       items_admin: [
@@ -296,8 +325,18 @@ export default {
         },
         {
           icon: "mdi-chart-bubble",
-          title: "Product",
+          title: "Shop",
           to: "/admin/product",
+        },
+        {
+          icon: "mdi-chart-bubble",
+          title: "Quote",
+          to: "/admin/quote",
+        },
+        {
+          icon: "mdi-chart-bubble",
+          title: "Sales",
+          to: "/admin/sales",
         },
       ],
       miniVariant: false,

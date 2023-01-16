@@ -1,36 +1,8 @@
 <template>
-  <div class="pa-15">
-    <!-- <v-img
-      src="/images/hero-img.jpeg"
-      color="transparent"
-      height="85vh"
-      gradient="to top right, rgba(100,115,201,.33), rgba(0,0,0,0.1)"
-      class="d-flex justify-start align-center pl-16"
-    >
-      <v-row>
-        <v-col cols="8">
-          <div class="text-h2 white--text">
-            <b>NEW STAYCATION ROOM AVAILABLE NOW</b>
-          </div>
-          <div class="text-h5 white--text">
-            <b>
-              Staycation for BER Months!<br />
-              2022
-            </b>
-          </div>
-          <div class="my-10 white--text">
-            <v-btn depressed color="secondary" dark>
-              BOOK NOW
-            </v-btn>
-          </div>
-        </v-col>
-        <v-col>
-        </v-col>
-      </v-row>
-    </v-img> -->
-    <v-row class="px-10">
+  <div class="pa-7">
+    <v-row :class="$vuetify.breakpoint.width < 350 ? 'px-10' : 'px-0'">
       <v-col
-        cols="6"
+        cols="12" md="6" lg="6" xl="6"
         align-self="center"
         class="px-10 bounce"
         transition="slide-x-transition"
@@ -59,7 +31,7 @@
           </v-col>
         </v-row>
       </v-col>
-      <v-col align="center" cols="6">
+      <v-col align="center" cols="6" v-if="$vuetify.breakpoint.width > 500">
         <v-img
           src="/images/hero-vector.png"
           height="400"

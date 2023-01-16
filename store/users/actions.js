@@ -29,12 +29,18 @@ const actions = {
     commit("SET_USER", response);
   },
   async reset_password({ commit }, register ) {
-    alert(register.email)
     const response = await this.$axios.$post(
       "/reset-password/",
       register
     );
     commit("SET_USER", response);
+  },
+  async findemail({ commit }, register ) {
+    const response = await this.$axios.$post(
+      "/findemail/",
+      register
+    );
+    return response
   },
 };
 

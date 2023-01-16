@@ -9,7 +9,7 @@ export default {
     created(){
         if(this.$auth.loggedIn){
             if(this.$auth.user.account_type=='Admin'){
-                location="/admin/dashboard"
+                location="/"
             }
             else{
                 location="/customer/transaction"

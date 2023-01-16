@@ -8,18 +8,7 @@
               <v-img :src="$route.query.image" height="100" width="100">
               </v-img>
             </v-col>
-            <v-col>
-              <div>Product Name : {{ $route.query.product_name }}</div>
-              <div>Variation : {{ register.variant }}</div>
-              <div>{{ register.quantity }}x Quantity</div>
-              <div>Php {{ register.price }}</div>
-            </v-col>
-          </v-row>
-        </div>
-        <div class="py-5">
-          <v-divider></v-divider>
-        </div>
-        <div>
+                    <div>
           <div class="text-h5">
             Contact Information:
           </div>
@@ -33,6 +22,18 @@
            Fullname: {{$auth.user.firstname}} {{$auth.user.lastname}}
           </div>
         </div>
+            <v-col>
+              <div>Product Name : {{ $route.query.product_name }}</div>
+              <div>Variation : {{ register.variant }}</div>
+              <div>{{ register.quantity }}x Quantity</div>
+              <div>Php {{ register.price }}</div>
+            </v-col>
+          </v-row>
+        </div>
+        <div class="py-5">
+          <v-divider></v-divider>
+        </div>
+
         Total Price: Php {{ register.price * register.quantity }}
 
         <div>
@@ -80,13 +81,12 @@
         </div>
         <div>Size</div>
         <div>
-
           <v-select
             outlined
             :items="sizeWithColor"
             @change="sizeChange"
             :item-text="'sizeColor'"
-            item-value="size"
+            item-value="sizeColor"
             v-model="register.variant"
             dense
           ></v-select>
@@ -167,18 +167,22 @@ export default {
       this.register.price = size[0].price;
     },
     submitHandler() {
+      var otpValue = Math.random().toString(6).slice(2);
       this.register.status = "Pending";
       this.register.payment_mode = "COD";
       this.register.user_id = this.$auth.user.id;
       this.register.product_id = this.$route.query.id;
+      this.register.tracking_id = otpValue
       this.$store.dispatch("transaction/add", this.register);
       location.reload();
     },
     async paymentMethod() {
+      var otpValue = Math.random().toString(6).slice(2);
       this.register.status = "Pending";
       this.register.payment_mode = "Paypal";
       this.register.user_id = this.$auth.user.id;
       this.register.product_id = this.$route.query.id;
+      this.register.tracking_id = otpValue
       this.$store.dispatch("transaction/add", this.register);
       var qs = require("qs");
 

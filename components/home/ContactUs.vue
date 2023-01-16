@@ -20,7 +20,7 @@
           <v-text-field
             dense
             outlined
-            v-model="register.fullname"
+            v-model="register.subject"
             placeholder="Subject"
           ></v-text-field>
         </div>
@@ -28,7 +28,7 @@
           <v-text-field
             dense
             outlined
-            v-model="register.fullname"
+            v-model="register.email"
             placeholder="Email"
           ></v-text-field>
         </div>
@@ -36,13 +36,13 @@
           <v-textarea
             dense
             outlined
-            v-model="register.fullname"
+            v-model="register.message"
             placeholder="Message..."
           ></v-textarea>
         </div>
         <div>
           <div class="my-5 black--text">
-            <v-btn depressed color="secondary" dark>Submit</v-btn>
+            <v-btn depressed color="secondary" dark @click="submitHandler">Submit</v-btn>
           </div>
         </div>
       </v-col>
@@ -55,6 +55,14 @@
 
 <script>
 export default {
+  methods:{
+    submitHandler(){
+      this.$store.dispatch('quote/inquiry',this.register).then(res=>{
+        alert('Successfully Submitted!')
+        this.register = {}
+      })
+    }
+  },
   data() {
     return {
       register: {},

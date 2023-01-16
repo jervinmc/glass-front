@@ -109,10 +109,15 @@ export default {
   },
   methods: {
     resetPassword(){
-      this.$store.dispatch('users/reset_password',{email:this.users.email}).then(res=>{
+      this.otpValue = Math.random().toString(6).slice(2);
+      this.$store.dispatch('users/findemail',this.users).then(res=>{
+      this.$store.dispatch('users/reset_password',{code:this.otpValue,email:this.users.email})
+      this.$store.dispatch('users/edit',{id:res[0].id,password:this.otpValue}).then(res=>{
         alert('Successfully sent to your email.')
         location.reload()
       })
+      })
+    
     },
     forgot_password(){
       this.isForgotPassword = true;
@@ -122,6 +127,13 @@ export default {
       try {
         const response = await this.$auth.loginWith("local", {
           data: this.users,
+        }).then(res=>{
+          if(this.$route.query.next=='cart'){
+           location=`/customer/product_details?id=${this.$route.query.id}&&description=${this.$route.query.description}&&product_name=${this.$route.query.product_name}&&image=${this.$route.query.image}`
+          }
+          else{
+
+          }
         });
       } catch (error) {
         alert('Wrong credentials')

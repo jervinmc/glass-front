@@ -88,7 +88,7 @@
           </v-card-text>
           <v-divider class="mx-4"></v-divider>
           <v-card-actions>
-            <v-btn color="secondary--text" text @click="$Location('redeem')">
+            <v-btn color="secondary--text" text @click="getItem(n)">
               <b class="secondary--text"> Get </b>
             </v-btn>
           </v-card-actions>
@@ -115,8 +115,16 @@ export default {
     this.$store.dispatch("product/view");
   },
   methods:{
+    getItem(item){
+      if(this.$auth.loggedIn){
+        location=`/customer/product_details?id=${item.id}&&description=${item.description}&&product_name=${item.product_name}&&image=${item.image}`
+      }else{
+         location=`/login?next=cart&id=${item.id}&&description=${item.description}&&product_name=${item.product_name}&&image=${item.image}`
+      }
+     
+    },
     submitHandler(){
-      this.$store.dispatch('users/quote',this.register).then(res=>{
+      this.$store.dispatch('quote/add',this.register).then(res=>{
         alert('Successfully Sent!')
         location.reload()
       })
