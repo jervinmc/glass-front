@@ -8,20 +8,14 @@
               <v-img :src="$route.query.image" height="100" width="100">
               </v-img>
             </v-col>
-                    <div>
-          <div class="text-h5">
-            Contact Information:
-          </div>
-          <div>
-           Address: {{$auth.user.address}}
-          </div>
-           <div>
-           Contact Number: {{$auth.user.contact_number}}
-          </div>
-          <div>
-           Fullname: {{$auth.user.firstname}} {{$auth.user.lastname}}
-          </div>
-        </div>
+            <div>
+              <div class="text-h5">Contact Information:</div>
+              <div>Address: {{ $auth.user.address }}</div>
+              <div>Contact Number: {{ $auth.user.contact_number }}</div>
+              <div>
+                Fullname: {{ $auth.user.firstname }} {{ $auth.user.lastname }}
+              </div>
+            </div>
             <v-col>
               <div>Product Name : {{ $route.query.product_name }}</div>
               <div>Variation : {{ register.variant }}</div>
@@ -172,7 +166,7 @@ export default {
       this.register.payment_mode = "COD";
       this.register.user_id = this.$auth.user.id;
       this.register.product_id = this.$route.query.id;
-      this.register.tracking_id = otpValue
+      this.register.tracking_id = otpValue;
       this.$store.dispatch("transaction/add", this.register);
       location.reload();
     },
@@ -182,7 +176,7 @@ export default {
       this.register.payment_mode = "Paypal";
       this.register.user_id = this.$auth.user.id;
       this.register.product_id = this.$route.query.id;
-      this.register.tracking_id = otpValue
+      this.register.tracking_id = otpValue;
       this.$store.dispatch("transaction/add", this.register);
       var qs = require("qs");
 
@@ -202,66 +196,67 @@ export default {
         .then((res) => {
           console.log(res.data);
           // alert(res.data["access_token"]);
-           var params1 = {
-      "intent": "sale",
-      "payer": {"payment_method": "paypal"},
-      "transactions": [
-        {
-          "amount": {
-            "total": "25.00",
-            "currency": "USD",
-            "details": {"subtotal": "25.00"}
-          },
-          "description": "This is the payment transaction description.",
-          "custom": "EBAY_EMS_90048630024435",
-          "invoice_number": "48787582672",
-          "payment_options": {
-            "allowed_payment_method": "INSTANT_FUNDING_SOURCE"
-          },
-          "soft_descriptor": "ECHI5786786",
-          "item_list": {
-            "items": [
+          var params1 = {
+            intent: "sale",
+            payer: { payment_method: "paypal" },
+            transactions: [
               {
-                "name": "handbag",
-                "description": "Black color hand bag",
-                "quantity": "1",
-                "price": "25.00",
-                "sku": "product34",
-                "currency": "USD"
-              }
+                amount: {
+                  total: "25.00",
+                  currency: "USD",
+                  details: { subtotal: "25.00" },
+                },
+                description: "This is the payment transaction description.",
+                custom: "EBAY_EMS_90048630024435",
+                invoice_number: "48787582672",
+                payment_options: {
+                  allowed_payment_method: "INSTANT_FUNDING_SOURCE",
+                },
+                soft_descriptor: "ECHI5786786",
+                item_list: {
+                  items: [
+                    {
+                      name: "handbag",
+                      description: "Black color hand bag",
+                      quantity: "1",
+                      price: "25.00",
+                      sku: "product34",
+                      currency: "USD",
+                    },
+                  ],
+                  shipping_address: {
+                    recipient_name: "Hello World",
+                    line1: "4thFloor",
+                    line2: "unit#34",
+                    city: "SAn Jose",
+                    country_code: "US",
+                    postal_code: "95131",
+                    phone: "011862212345678",
+                    state: "CA",
+                  },
+                },
+              },
             ],
-            "shipping_address": {
-              "recipient_name": "Hello World",
-              "line1": "4thFloor",
-              "line2": "unit#34",
-              "city": "SAn Jose",
-              "country_code": "US",
-              "postal_code": "95131",
-              "phone": "011862212345678",
-              "state": "CA"
-            }
-          }
-        }
-      ],
-      "note_to_payer": "Contact us for any questions on your order.",
-      "redirect_urls": {
-        "return_url": "http://10.0.2.2:8000/api/v1",
-        "cancel_url": "https://example.com"
-      }
-    };
-   var url = "https://api-m.sandbox.paypal.com/v1/payments/payment";
-    var headers_payment = {
-      "Accept": "application/json",
-      'Accept-Language': 'en_US',
-      "Authorization": `Bearer A21AAKsr51InjIfkYVOboiOhai2neHPdRg3Vr9gCS5-Ix2EXP39JCWQ4RjZqmklcvn6wEKeKbSGgIb1Nk73DPBR3smY1yuR0A`,
-      "Content-Type": "application/json"
-    };
-   var b  =  this.$axios.post(url,
-        params1,{
-        headers:headers_payment
-        }).then(res=>{
-          location=res.data['links'][1]['href']
-        })
+            note_to_payer: "Contact us for any questions on your order.",
+            redirect_urls: {
+              return_url: "http://52.192.75.244/customer/order/",
+              cancel_url: "http://52.192.75.244/",
+            },
+          };
+          var url = "https://api-m.sandbox.paypal.com/v1/payments/payment";
+          var headers_payment = {
+            Accept: "application/json",
+            "Accept-Language": "en_US",
+            Authorization: `Bearer ${res.data["access_token"]}`,
+            "Content-Type": "application/json",
+          };
+          var b = this.$axios
+            .post(url, params1, {
+              headers: headers_payment,
+            })
+            .then((res) => {
+              location = res.data["links"][1]["href"];
+            });
         });
     },
   },

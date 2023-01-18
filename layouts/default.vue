@@ -308,6 +308,11 @@ export default {
         },
         {
           icon: "mdi-chart-bubble",
+          title: "Quote",
+          to: "/customer/quote",
+        },
+        {
+          icon: "mdi-chart-bubble",
           title: "My Purchased",
           to: "/customer/complete",
         },

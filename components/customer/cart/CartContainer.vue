@@ -176,7 +176,7 @@
         <div>
           {{register.cart.length}} Item/s Selected
         </div>
-        <div class="pt-10">
+        <!-- <div class="pt-10">
           <v-text-field
             hide-details
             v-model="search"
@@ -184,7 +184,7 @@
             dense
             placeholder="Search Request No."
           ></v-text-field>
-        </div>
+        </div> -->
         <v-data-table
           :search="search"
           class="pa-5"
@@ -209,7 +209,7 @@
             {{ item.quantity * item.price }}
           </template>
           <template #[`item.quantity`]="{ item }">
-          <v-icon @click="plus(item)">mdi-plus</v-icon>  <b>{{ item.quantity}}</b><v-icon color="red" @click="minus(item)">mdi-minus</v-icon> 
+          <v-icon @click="plus(item)">mdi-plus</v-icon>  <b>{{ item.quantity}}</b><v-icon color="red" @click="minus(item)">mdi-minus</v-icon> <v-icon color="red" @click="deleteItem(item)">mdi-delete</v-icon> 
           </template>
           <template #[`item.image`]="{ item }">
             <v-img :src="item.image" height="100" width="100"></v-img>
@@ -321,6 +321,11 @@ export default {
     },
   },
   methods: {
+    deleteItem(item){
+      this.$store.dispatch('cart/delete',item).then(res=>{
+        location.reload()
+      })
+    },
     minus(item){
       var a = cloneDeep(this.cart_data)
       for(let x in this.my_cart){
@@ -410,8 +415,8 @@ export default {
             ],
             note_to_payer: "Contact us for any questions on your order.",
             redirect_urls: {
-              return_url: "http://10.0.2.2:8000/api/v1",
-              cancel_url: "https://example.com",
+              return_url: "http://52.192.75.244/customer/order/",
+              cancel_url: "http://52.192.75.244/",
             },
           };
           var url = "https://api-m.sandbox.paypal.com/v1/payments/payment";
@@ -573,7 +578,7 @@ export default {
         { text: "Product Name", value: "product_name" },
         { text: "Price", value: "price" },
         { text: "Size", value: "variant" },
-        { text: "Quantity", value: "quantity" },
+        { text: "Quantity", value: "quantity",width:150 },
         { text: "Total Price", value: "total_price" },
         { text: "Image", value: "image" },
         // { text: "Address", value: "address" },

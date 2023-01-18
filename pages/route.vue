@@ -12,7 +12,7 @@ export default {
                 location="/"
             }
             else{
-                location="/customer/transaction"
+                location="/"
             }
         }
         else{

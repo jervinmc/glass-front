@@ -64,6 +64,27 @@
             </v-row>
           </v-card>
         </v-col>
+        <v-col>
+          <v-card class="pa-5" color="#e67e22" dark>
+            <v-row>
+              <v-col cols="8">
+                <div class="text-h6">
+                  {{quote_data.length}}
+                </div>
+                <div>
+                  Total Quotes
+                </div>
+              </v-col>
+              <v-col align="end">
+                  <div>
+                    <v-icon>
+                      mdi-cart-variant
+                    </v-icon>
+                  </div>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-col>
     </v-row>
   </div>
 </template>
@@ -75,10 +96,13 @@ export default {
     ...mapState('users',['users']),
     ...mapState("product", ["product_data"]),
     ...mapState("transaction", ["transaction_data"]),
+    ...mapState("quote", ["quote_data"]),
   },
   created(){
     this.$store.dispatch('users/view')
     this.$store.dispatch('product/view')
+    this.$store.dispatch('transaction/view')
+    this.$store.dispatch('quote/view')
   }
 }
 </script>

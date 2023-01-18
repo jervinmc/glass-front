@@ -175,6 +175,10 @@
               class="my-2"
             ></v-skeleton-loader>
           </template>
+          
+          <template #[`item.date_from`]="{ item }">
+            {{ $FormatDate(item.date_from)}}
+          </template>
           <template #[`item.is_active`]="{ item }">
             {{ item.is_active ? "Yes" : "No" }}
           </template>
@@ -394,6 +398,7 @@ export default {
         { text: "Total Price", value: "total_price" },
         { text: "Image", value: "image" },
         { text: "Payment Method", value: "payment_mode" },
+        { text: "Date Ordered", value: "date_from" },
         { text: "Actions", value: "opt" },
         ,
       ],

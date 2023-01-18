@@ -1,12 +1,128 @@
 <template>
   <v-sheet class="pa-10" color="">
+    <div class="black--text text-h5 pb-5">
+      <v-row>
+        <v-col>
+          <b>Sales</b>
+        </v-col>
+      </v-row>
+    </div>
+    <div class="pa-10">
+      <v-row>
+        <v-col>
+          <v-card class="pa-5" color="#0086ca" dark>
+            <v-row>
+              <v-col cols="8">
+                <div class="text-h6">
+                  {{ 0 }}
+                </div>
+                <div>New Orders</div>
+              </v-col>
+              <v-col align="end">
+                <div>
+                  <v-icon> mdi-account </v-icon>
+                </div>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-col>
+        <v-col>
+          <v-card class="pa-5" color="#39ca74" dark>
+            <v-row>
+              <v-col cols="8">
+                <div class="text-h6">
+                  {{ 0 }}
+                </div>
+                <div>Total Income</div>
+              </v-col>
+              <v-col align="end">
+                <div>
+                  <v-icon> mdi-list-box </v-icon>
+                </div>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-col>
+        <v-col>
+          <v-card class="pa-5" color="#ffaf3a" dark>
+            <v-row>
+              <v-col cols="8">
+                <div class="text-h6">
+                  {{ 0 }}
+                </div>
+                <div>Product Sold</div>
+              </v-col>
+              <v-col align="end">
+                <div>
+                  <v-icon> mdi-cart-variant </v-icon>
+                </div>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-col>
+        <v-col>
+          <v-card class="pa-5" color="#e67e22" dark>
+            <v-row>
+              <v-col cols="8">
+                <div class="text-h6">
+                  {{ users.length }}
+                </div>
+                <div>User</div>
+              </v-col>
+              <v-col align="end">
+                <div>
+                  <v-icon> mdi-cart-variant </v-icon>
+                </div>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-col>
+      </v-row>
+    </div>
+    <div class="py-10">
+      <v-row>
+        <v-col>
+          <v-card class="pa-10">
+            <div>Product Sold</div>
+            <div class="pa-5">
+              <VueApexCharts
+                :series="series"
+                :data="data"
+                :options="chartOptions"
+                height="300"
+              />
+            </div>
+          </v-card>
+        </v-col>
+        <v-col>
+          <v-card class="pa-10">
+            <div>Sales/Revenue</div>
+            <div class="pa-5">
+              <VueApexCharts
+                :series="series"
+                :data="data"
+                :options="chartOptions1"
+                height="300"
+              />
+            </div>
+          </v-card>
+        </v-col>
+      </v-row>
+    </div>
     <v-dialog v-model="view_status" width="800">
       <v-card class="pa-10">
         <v-stepper alt-labels>
           <v-stepper-header>
             <v-stepper-step step="1" complete> Pending </v-stepper-step>
             <v-divider></v-divider>
-            <v-stepper-step step="2" :complete="selectedStatus=='Approved' || selectedStatus=='Delivered'"> Approved </v-stepper-step>
+            <v-stepper-step
+              step="2"
+              :complete="
+                selectedStatus == 'Approved' || selectedStatus == 'Delivered'
+              "
+            >
+              Approved
+            </v-stepper-step>
             <v-divider></v-divider>
             <v-stepper-step step="3">Delivered</v-stepper-step>
           </v-stepper-header>
@@ -41,21 +157,27 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12">
-              <v-row>
-            <v-spacer></v-spacer>
-            <v-col align="end">
-              <v-btn class="rounded-lg" color="secondary" @click="updateSize('-')"
-                >-</v-btn
-              >
-            </v-col>
-            <v-col align="end" cols="auto">
-              <v-btn class="rounded-lg" color="secondary" @click="updateSize('+')"
-                >+</v-btn
-              >
-            </v-col>
-          </v-row>
+            <v-row>
+              <v-spacer></v-spacer>
+              <v-col align="end">
+                <v-btn
+                  class="rounded-lg"
+                  color="secondary"
+                  @click="updateSize('-')"
+                  >-</v-btn
+                >
+              </v-col>
+              <v-col align="end" cols="auto">
+                <v-btn
+                  class="rounded-lg"
+                  color="secondary"
+                  @click="updateSize('+')"
+                  >+</v-btn
+                >
+              </v-col>
+            </v-row>
           </v-col>
-          <v-col cols="12" v-for="(x,index) in size_counter" :key="x">
+          <v-col cols="12" v-for="(x, index) in size_counter" :key="x">
             <v-row>
               <v-col cols="6">
                 <v-text-field
@@ -120,92 +242,82 @@
         </v-row>
       </v-card>
     </v-dialog>
-    <div class="black--text text-h5 pb-5">
-      <v-row>
-        <v-col>
-          <b>Sales</b>
-        </v-col>
-      </v-row>
-    </div>
-    <div>
-      <v-card class="pa-16" elevation="1" color="white">
-        <div class="pt-10">
-          <v-text-field
-            hide-details
-            v-model="search"
-            outlined
-            dense
-            placeholder="Search Request No."
-          ></v-text-field>
-        </div>
-        <v-data-table
-          :search="search"
-          class="pa-5"
-          :headers="headers"
-          :items="sales_data"
-          :loading="isLoading"
-        >
-          <template v-slot:loading>
-            <v-skeleton-loader
-              v-for="n in 5"
-              :key="n"
-              type="list-item-avatar-two-line"
-              class="my-2"
-            ></v-skeleton-loader>
-          </template>
-           <template #[`item.total_price`]="{ item }">
-            {{ item.quantity * item.price}}
-          </template>
-          <template #[`item.is_active`]="{ item }">
-            {{ item.is_active ? "Yes" : "No" }}
-          </template>
-          <template #[`item.image`]="{ item }">
-            <v-img :src="item.image" height="100" width="100"></v-img>
-          </template>
-          <template #[`item.opt`]="{ item }">
-            <v-menu offset-y z-index="1">
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn icon v-bind="attrs" v-on="on">
-                  <v-icon>mdi-dots-horizontal</v-icon>
-                </v-btn>
-              </template>
-              <v-list dense>
-                <v-list-item @click.stop="statusUpdate(item, 'To Ship')">
-                  <v-list-item-content>
-                    <v-list-item-title>To Ship</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                 <v-list-item @click.stop="statusUpdate(item, 'Pick up')">
-                  <v-list-item-content>
-                    <v-list-item-title>Pick up</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                 <v-list-item @click.stop="statusUpdate(item, 'To Receive')">
-                  <v-list-item-content>
-                    <v-list-item-title>To Receive</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item @click.stop="statusUpdate(item, 'Delievered')">
-                  <v-list-item-content>
-                    <v-list-item-title>Delievered</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item @click.stop="statusUpdate(item, 'Complete')">
-                  <v-list-item-content>
-                    <v-list-item-title>Complete</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-          </template>
-        </v-data-table>
-        <div align="end">
+
+    <v-row>
+      <v-col>
+        <div>
+          <v-card class="pa-16" elevation="1" color="white">
             <div>
-                Total Amount: Php {{total_sales}}
+              Recently Sold
             </div>
+            <v-data-table
+              :search="search"
+              class="pa-5"
+              :headers="headers"
+              :items="sales_data"
+              :loading="isLoading"
+            >
+              <template v-slot:loading>
+                <v-skeleton-loader
+                  v-for="n in 5"
+                  :key="n"
+                  type="list-item-avatar-two-line"
+                  class="my-2"
+                ></v-skeleton-loader>
+              </template>
+              <template #[`item.total_price`]="{ item }">
+                {{ item.quantity * item.price }}
+              </template>
+              <template #[`item.is_active`]="{ item }">
+                {{ item.is_active ? "Yes" : "No" }}
+              </template>
+              <template #[`item.image`]="{ item }">
+                <v-img :src="item.image" height="100" width="100"></v-img>
+              </template>
+              <template #[`item.opt`]="{ item }">
+                <v-menu offset-y z-index="1">
+                  <template v-slot:activator="{ attrs, on }">
+                    <v-btn icon v-bind="attrs" v-on="on">
+                      <v-icon>mdi-dots-horizontal</v-icon>
+                    </v-btn>
+                  </template>
+                  <v-list dense>
+                    <v-list-item @click.stop="statusUpdate(item, 'To Ship')">
+                      <v-list-item-content>
+                        <v-list-item-title>To Ship</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item @click.stop="statusUpdate(item, 'Pick up')">
+                      <v-list-item-content>
+                        <v-list-item-title>Pick up</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item @click.stop="statusUpdate(item, 'To Receive')">
+                      <v-list-item-content>
+                        <v-list-item-title>To Receive</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item @click.stop="statusUpdate(item, 'Delievered')">
+                      <v-list-item-content>
+                        <v-list-item-title>Delievered</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item @click.stop="statusUpdate(item, 'Complete')">
+                      <v-list-item-content>
+                        <v-list-item-title>Complete</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+              </template>
+            </v-data-table>
+            <div align="end">
+              <div>Total Amount: Php {{ total_sales }}</div>
+            </div>
+          </v-card>
         </div>
-      </v-card>
-    </div>
+      </v-col>
+    </v-row>
     <div></div>
   </v-sheet>
 </template>
@@ -217,53 +329,60 @@ import { mapState, mapActions } from "vuex";
 // import Add from "./Add.vue";
 // import Edit from "./Edit.vue";
 import VueToastr from "vue-toastr";
+import VueApexCharts from "vue-apexcharts";
 Vue.use(VueToastr, {
   /* OverWrite Plugin Options if you need */
 });
 
 var cloneDeep = require("lodash.clonedeep");
 export default {
-  components: {},
+  components: {
+    VueApexCharts,
+  },
   created() {
     this.$store.dispatch("transaction/view");
+    this.$store.dispatch("users/view");
   },
   computed: {
+    ...mapState("users", ["users"]),
     ...mapState("transaction", ["transaction_data"]),
     filteredData() {
       return this.exercise_data.filter((data) => data.category == this.status);
     },
-    sales_data(){
-       return this.transaction_data.filter(data=>data.status=='Delievered')
+    sales_data() {
+      return this.transaction_data.filter(
+        (data) => data.status == "Delievered"
+      );
     },
-    total_sales(){
-        var a = 0
-        this.sales_data.map(res=>{
-            a = a + (res.price * res.quantity )
-        })
-        return a
-        
-    }
+    total_sales() {
+      var a = 0;
+      this.sales_data.map((res) => {
+        a = a + res.price * res.quantity;
+      });
+      return a;
+    },
   },
   methods: {
     viewDetails(item) {
       this.selectedStatus = item.status;
       this.view_status = true;
     },
-    statusUpdate(item,status){
-      this.$store.dispatch('transaction/edit',{id:item.id,status:status}).then(res=>{
-        location.reload()
-      })
+    statusUpdate(item, status) {
+      this.$store
+        .dispatch("transaction/edit", { id: item.id, status: status })
+        .then((res) => {
+          location.reload();
+        });
     },
-    updateSize(operation){
-      if(operation=='+'){
-        this.size_counter.push('')
-        this.size.push('')
-        this.price.push('')
-      }
-      else{
-        this.size_counter.splice(0,1)
-        this.size.splice(0,1)
-        this.price.splice(0,1)
+    updateSize(operation) {
+      if (operation == "+") {
+        this.size_counter.push("");
+        this.size.push("");
+        this.price.push("");
+      } else {
+        this.size_counter.splice(0, 1);
+        this.size.splice(0, 1);
+        this.price.splice(0, 1);
       }
     },
     async submitHandler() {
@@ -279,14 +398,18 @@ export default {
         form_data.append("price", this.register.price);
         form_data.append("quantity", this.register.quantity);
         form_data.append("description", this.register.description);
-        await this.$store.dispatch("product/add", form_data).then((res)=>{
-            this.$store.dispatch("size/add",{"size":this.size,"price":this.price,"product_id":res.id} )
-        })
+        await this.$store.dispatch("product/add", form_data).then((res) => {
+          this.$store.dispatch("size/add", {
+            size: this.size,
+            price: this.price,
+            product_id: res.id,
+          });
+        });
         this.isAdd = false;
         alert("Successfully Added!");
-        location.reload()
+        location.reload();
       } catch (error) {
-        alert(error)
+        alert(error);
       }
     },
     onFileUpload(e) {
@@ -363,13 +486,101 @@ export default {
   },
   data() {
     return {
-      selectedStatus:'Pending',
-      view_status:false,
-      size_counter:[],
+      series: [
+        {
+          name: "series-1",
+          data: [30, 40, 45, 50, 49, 60, 70, 91],
+        },
+      ],
+      chartOptions: {
+        chart: {
+          height: 250,
+          type: "line",
+          zoom: {
+            enabled: false,
+          },
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        stroke: {
+          curve: "straight",
+        },
+        title: {
+          text: "",
+          align: "left",
+        },
+        grid: {
+          row: {
+            colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+            opacity: 0.5,
+          },
+        },
+        xaxis: {
+          categories: [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
+          ],
+        },
+      },
+      chartOptions1: {
+        chart: {
+          height: 250,
+          type: "bar",
+          zoom: {
+            enabled: false,
+          },
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        stroke: {
+          curve: "straight",
+        },
+        title: {
+          text: "",
+          align: "left",
+        },
+        grid: {
+          row: {
+            colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+            opacity: 0.5,
+          },
+        },
+        xaxis: {
+          categories: [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
+          ],
+        },
+      },
+      selectedStatus: "Pending",
+      view_status: false,
+      size_counter: [],
       isAdd: false,
       register: {
-        size:[],
-        price:[],
+        size: [],
+        price: [],
       },
       addForm: false,
       isConfirmationApprove: false,
@@ -379,8 +590,8 @@ export default {
       file: "",
       addForm: false,
       editForm: false,
-      size:[],
-      price:[],
+      size: [],
+      price: [],
       account_type: "Resident",
       selectedItem: {},
       status: "Easy",

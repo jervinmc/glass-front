@@ -275,6 +275,9 @@
               class="my-2"
             ></v-skeleton-loader>
           </template>
+           <template #[`item.date_from`]="{ item }">
+            {{ $FormatDate(item.date_from)}}
+          </template>
            <template #[`item.total_price`]="{ item }">
             {{ item.quantity * item.price}}
           </template>
@@ -521,6 +524,7 @@ export default {
         { text: "Total Price", value: "total_price" },
         { text: "Image", value: "image" },
         { text: "Status", value: "status" },
+        { text: "Date Ordered", value: "date_from" },
         // { text: "Address", value: "address" },
         { text: "Actions", value: "opt" },
         ,
