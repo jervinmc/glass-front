@@ -114,15 +114,16 @@
       </div>
     </v-app-bar>
     <v-app-bar color="#18242c" v-else :clipped-left="clipped" fixed app>
-      <div align="start">
-        <v-img
+      <div align="start" class="white--text text-h5">
+        <b @click="goIndex" class="pointer">R&R</b>
+        <!-- <v-img
           class="pointer"
           src="/logo.jpeg"
           height="50"
           width="100"
           contain
           @click="goIndex"
-        />
+        /> -->
       </div>
       <v-spacer />
       <div
