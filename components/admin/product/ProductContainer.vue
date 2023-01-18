@@ -100,7 +100,7 @@
             <v-select
               outlined
               dense
-              v-model="register.category"
+              v-model="register.status"
               placeholder="Status"
               :items="['In Stock', 'Out Of Stock']"
             ></v-select>

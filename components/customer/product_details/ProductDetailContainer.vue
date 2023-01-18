@@ -21,6 +21,9 @@
               <div>Variation : {{ register.variant }}</div>
               <div>{{ register.quantity }}x Quantity</div>
               <div>Php {{ register.price }}</div>
+              <div>
+                {{register.status}}
+              </div>
             </v-col>
           </v-row>
         </div>

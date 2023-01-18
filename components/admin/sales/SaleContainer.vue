@@ -14,7 +14,7 @@
             <v-row>
               <v-col cols="8">
                 <div class="text-h6">
-                  {{ 0 }}
+                  {{ sales_data.length  }}
                 </div>
                 <div>New Orders</div>
               </v-col>
@@ -31,7 +31,7 @@
             <v-row>
               <v-col cols="8">
                 <div class="text-h6">
-                  {{ 0 }}
+                  {{ total_sales }}
                 </div>
                 <div>Total Income</div>
               </v-col>
@@ -71,7 +71,7 @@
               </v-col>
               <v-col align="end">
                 <div>
-                  <v-icon> mdi-cart-variant </v-icon>
+                  <v-icon> mdi-account-multiple </v-icon>
                 </div>
               </v-col>
             </v-row>
