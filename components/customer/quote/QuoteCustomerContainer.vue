@@ -18,6 +18,14 @@
             outlined
           ></v-text-field>
         </div>
+        <div>Price:</div>
+        <div>
+          <v-text-field
+            v-model="register.price"
+            dense
+            outlined
+          ></v-text-field>
+        </div>
         <div>Contact Number:</div>
         <div>
           <v-text-field
@@ -48,7 +56,7 @@
         </v-col>
         <v-col align="end">
           <v-btn color="secondary" @click="isQuote = true" class="rounded-lg"
-            >Add Quote</v-btn
+            >ADD CUSTOMIZE</v-btn
           >
         </v-col>
       </v-row>
@@ -159,6 +167,7 @@ export default {
   methods: {
     submitHandler() {
       this.register.user_id = this.$auth.user.id;
+      this.register.status = 'Pending'
       this.$store.dispatch("quote/add", this.register).then((res) => {
         alert("Successfully Sent!");
         location.reload();
@@ -298,7 +307,8 @@ export default {
         { text: "Message", value: "message" },
         { text: "Fullname", value: "fullname" },
         { text: "Contact Number", value: "contact_number" },
-        // { text: "Address", value: "address" },
+        { text: "Price", value: "price" },
+         { text: "Status", value: "status" },
         // { text: "Actions", value: "opt" },
         ,
       ],

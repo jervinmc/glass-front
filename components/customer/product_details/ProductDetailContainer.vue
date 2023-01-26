@@ -3,20 +3,22 @@
     <v-dialog v-model="isCheckout" width="500">
       <v-card class="pa-10">
         <div>
-          <v-row>
-            <v-col cols="auto">
-              <v-img :src="$route.query.image" height="100" width="100">
-              </v-img>
-            </v-col>
+          <div class="text-h5">Contact Information:</div>
+          <div><div>Address:</div>
             <div>
-              <div class="text-h5">Contact Information:</div>
-              <div>Address: {{ $auth.user.address }}</div>
-              <div>Contact Number: {{ $auth.user.contact_number }}</div>
-              <div>
-                Fullname: {{ $auth.user.firstname }} {{ $auth.user.lastname }}
-              </div>
+              <v-text-field outlined dense v-model="register.address"></v-text-field>
+            </div></div>
+          <div>
+            <div>Contact Number:</div>
+            <div>
+              <v-text-field outlined dense v-model="register.contact_number"></v-text-field>
             </div>
-            <v-col>
+          </div>
+          <div>
+            Fullname: {{ $auth.user.firstname }} {{ $auth.user.lastname }}
+          </div>
+        </div>
+        <v-col>
               <div>Product Name : {{ $route.query.product_name }}</div>
               <div>Variation : {{ register.variant }}</div>
               <div>{{ register.quantity }}x Quantity</div>
@@ -25,15 +27,14 @@
                 {{register.status}}
               </div>
             </v-col>
-          </v-row>
-        </div>
         <div class="py-5">
           <v-divider></v-divider>
         </div>
 
-        Total Price: Php {{ register.price * register.quantity }}
-
         <div>
+            <div>
+            Payment Options : 
+          </div>
           <div class="pt-4">
             <v-btn color="grey" dark width="100%" @click="isCheckout = false"
               >Cancel</v-btn
@@ -41,11 +42,11 @@
           </div>
           <div class="pt-4">
             <v-btn color="secondary" width="100%" @click="submitHandler"
-              >Pay COD</v-btn
+              >Cash On Delivery</v-btn
             >
             <div class="pt-4">
               <v-btn color="secondary" width="100%" @click="paymentMethod"
-                >Pay Via Paypal</v-btn
+                >Paypal</v-btn
               >
             </div>
           </div>
@@ -56,6 +57,22 @@
       <v-col cols="8">
         <div>
           <v-img :src="$route.query.image" height="400" width="400"></v-img>
+        </div>
+        <div>
+          <v-row>
+            <v-col cols="3">
+              <v-img height="100" width="100" :src="$route.query.image1"></v-img>
+            </v-col>
+            <v-col cols="3">
+              <v-img height="100" width="100" :src="$route.query.image2"></v-img>
+            </v-col>
+            <v-col cols="3">
+              <v-img height="100" width="100" :src="$route.query.image3"></v-img>
+            </v-col>
+            <v-col cols="3">
+              <v-img height="100" width="100" :src="$route.query.image4"></v-img>
+            </v-col>
+          </v-row>
         </div>
         <div>
           <div class="text-h5 py-10">
@@ -150,7 +167,7 @@ export default {
     },
     submitHandlerCart() {
       this.register.user_id = this.$auth.user.id;
-      this.register.product_id = this.$auth.user.id;
+      // this.register.product_id = this.$auth.user.id;
       this.register.product_id = this.$route.query.id;
       this.$store.dispatch("cart/add", this.register).then((res) => {
         alert("Successfully added to cart");

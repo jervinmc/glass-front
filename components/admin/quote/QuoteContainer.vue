@@ -59,29 +59,14 @@
                 </v-btn>
               </template>
               <v-list dense>
-                <v-list-item @click.stop="statusUpdate(item, 'To Ship')">
+                <v-list-item @click.stop="statusUpdate(item, 'Confirm')">
                   <v-list-item-content>
-                    <v-list-item-title>To Ship</v-list-item-title>
+                    <v-list-item-title>Confirm</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
-                 <v-list-item @click.stop="statusUpdate(item, 'Pick up')">
+                 <v-list-item @click.stop="statusUpdate(item, 'Cancel')">
                   <v-list-item-content>
-                    <v-list-item-title>Pick up</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                 <v-list-item @click.stop="statusUpdate(item, 'To Receive')">
-                  <v-list-item-content>
-                    <v-list-item-title>To Receive</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item @click.stop="statusUpdate(item, 'Delievered')">
-                  <v-list-item-content>
-                    <v-list-item-title>Delievered</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item @click.stop="statusUpdate(item, 'Complete')">
-                  <v-list-item-content>
-                    <v-list-item-title>Complete</v-list-item-title>
+                    <v-list-item-title>Cancel</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-list>
@@ -123,7 +108,7 @@ export default {
       this.view_status = true;
     },
     statusUpdate(item,status){
-      this.$store.dispatch('transaction/edit',{id:item.id,status:status}).then(res=>{
+      this.$store.dispatch('quote/edit',{id:item.id,status:status}).then(res=>{
         location.reload()
       })
     },
@@ -252,8 +237,10 @@ export default {
         { text: "Message", value: "message" },
         { text: "Fullname", value: "fullname" },
         { text: "Contact Number", value: "contact_number" },
+        { text: "Price", value: "price" },
+        { text: "Status", value: "status" },
         // { text: "Address", value: "address" },
-        // { text: "Actions", value: "opt" },
+        { text: "Actions", value: "opt" },
         ,
       ],
     };

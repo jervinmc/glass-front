@@ -28,7 +28,7 @@
                 v-model="register.lastname"
               ></v-text-field>
             </v-col>
-            <v-col>
+            <!-- <v-col>
               Gender
               <v-select
                 :items="['Male','Female']"
@@ -36,7 +36,7 @@
                 :rules="standardRules"
                 v-model="register.gender"
               ></v-select>
-            </v-col>
+            </v-col> -->
           </v-row>
         </div>
         <div>
@@ -61,15 +61,15 @@
         </div>
         <div>
           <v-row>
-            <v-col>
+            <!-- <v-col>
               Mobile Number
               <v-text-field
                 outlined
                 :rules="standardRules"
                 v-model="register.mobile_number"
               ></v-text-field>
-            </v-col>
-            <v-col>
+            </v-col> -->
+            <!-- <v-col>
               <div>
                 Birthdate
                 <div class="text-h5">
@@ -115,11 +115,11 @@
                   </v-menu>
                 </div>
               </div>
-            </v-col>
+            </v-col> -->
           </v-row>
         </div>
         <div>
-          <v-row>
+          <!-- <v-row>
             <v-col>
               Address
               <v-text-field
@@ -128,10 +128,10 @@
                 v-model="register.address"
               ></v-text-field>
             </v-col>
-          </v-row>
+          </v-row> -->
         </div>
         <div>
-          <v-row>
+          <!-- <v-row>
             <v-col>
               Select Province
               <v-select
@@ -162,7 +162,7 @@
                 v-model="register.barangay"
               ></v-text-field>
             </v-col>
-          </v-row>
+          </v-row> -->
         </div>
         <div>
           <v-row>

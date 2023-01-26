@@ -45,7 +45,7 @@
       <v-col>
         <div class="pt-10 black--text" align="center">
           <v-btn depressed color="secondary" dark @click="isQuote = true">
-            GET QUOTE
+            FOR CUSTOMIZE ORDERS
           </v-btn>
         </div>
       </v-col>

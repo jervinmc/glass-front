@@ -105,12 +105,59 @@
               :items="['In Stock', 'Out Of Stock']"
             ></v-select>
           </v-col>
+          <div>
+            Image 1
+          </div>
           <v-col cols="12">
             <input
               type="file"
               id="fileInput"
               ref="file"
               @change="onFileUpload"
+            />
+          </v-col>
+           <div>
+            Image 2
+          </div>
+          <v-col cols="12">
+            <input
+              type="file"
+              id="fileInput2"
+              ref="file2"
+              @change="onFileUpload2"
+            />
+          </v-col>
+           <div>
+            Image 3
+          </div>
+          <v-col cols="12">
+            <input
+              type="file"
+              id="fileInput3"
+              ref="file3"
+              @change="onFileUpload3"
+            />
+          </v-col>
+           <div>
+            Image 4
+          </div>
+          <v-col cols="12">
+            <input
+              type="file"
+              id="fileInput4"
+              ref="file4"
+              @change="onFileUpload4"
+            />
+          </v-col>
+           <div>
+            Image 5
+          </div>
+          <v-col cols="12">
+            <input
+              type="file"
+              id="fileInput5"
+              ref="file5"
+              @change="onFileUpload5"
             />
           </v-col>
           <v-col cols="12">
@@ -305,6 +352,18 @@ export default {
         if (this.file != null && this.file != "") {
           form_data.append("image", this.file);
         }
+        if (this.file2 != null && this.file2 != "") {
+          form_data.append("image1", this.file2);
+        }
+        if (this.file3 != null && this.file3 != "") {
+          form_data.append("image2", this.file3);
+        }
+        if (this.file4 != null && this.file4 != "") {
+          form_data.append("image3", this.file4);
+        }
+        if (this.file5 != null && this.file5 != "") {
+          form_data.append("image4", this.file5);
+        }
         form_data.append("size", this.size);
         form_data.append("price", this.price);
         form_data.append("product_name", this.register.product_name);
@@ -345,6 +404,82 @@ export default {
       }
       console.log(e);
       this.file = e;
+    },
+    onFileUpload2(e) {
+      this.file2 = e;
+      e = e.target.files[0];
+      if (e["name"].length > 100) {
+        alert("255 characters exceeded filename.");
+        return;
+      }
+      try {
+        if (e.size > 16000000) {
+          alert("Only 15mb file can be accepted.");
+          return;
+        }
+      } catch (error) {
+        alert(error);
+        return;
+      }
+      console.log(e);
+      this.file2 = e;
+    },
+    onFileUpload3(e) {
+      this.file3 = e;
+      e = e.target.files[0];
+      if (e["name"].length > 100) {
+        alert("255 characters exceeded filename.");
+        return;
+      }
+      try {
+        if (e.size > 16000000) {
+          alert("Only 15mb file can be accepted.");
+          return;
+        }
+      } catch (error) {
+        alert(error);
+        return;
+      }
+      console.log(e);
+      this.file3 = e;
+    },
+    onFileUpload4(e) {
+      this.file4 = e;
+      e = e.target.files[0];
+      if (e["name"].length > 100) {
+        alert("255 characters exceeded filename.");
+        return;
+      }
+      try {
+        if (e.size > 16000000) {
+          alert("Only 15mb file can be accepted.");
+          return;
+        }
+      } catch (error) {
+        alert(error);
+        return;
+      }
+      console.log(e);
+      this.file4 = e;
+    },
+    onFileUpload5(e) {
+      this.file5 = e;
+      e = e.target.files[0];
+      if (e["name"].length > 100) {
+        alert("255 characters exceeded filename.");
+        return;
+      }
+      try {
+        if (e.size > 16000000) {
+          alert("Only 15mb file can be accepted.");
+          return;
+        }
+      } catch (error) {
+        alert(error);
+        return;
+      }
+      console.log(e);
+      this.file5 = e;
     },
     statusConfirmation(item, status) {
       this.requestedStatus = status;
@@ -401,6 +536,10 @@ export default {
   },
   data() {
     return {
+      file2:'',
+      file3:'',
+      file4:'',
+      file5:'',
       isEdit: false,
       size_counter: [],
       isAdd: false,

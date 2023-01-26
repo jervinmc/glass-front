@@ -65,7 +65,7 @@ import {mapState} from 'vuex';
 export default {
   methods:{
     viewItem(item){
-      location=`/customer/product_details?id=${item.id}&&description=${item.description}&&product_name=${item.product_name}&&image=${item.image}`
+      location=`/customer/product_details?id=${item.id}&&description=${item.description}&&product_name=${item.product_name}&&image=${item.image}&&image1=${item.image1}&&image2=${item.image2}&&image3=${item.image3}&&image4=${item.image4}`
     }
   },
   computed:{

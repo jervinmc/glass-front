@@ -309,7 +309,7 @@ export default {
         },
         {
           icon: "mdi-chart-bubble",
-          title: "Quote",
+          title: "Customize Order",
           to: "/customer/quote",
         },
         {
@@ -336,7 +336,7 @@ export default {
         },
         {
           icon: "mdi-chart-bubble",
-          title: "Quote",
+          title: "Customize Order",
           to: "/admin/quote",
         },
         {

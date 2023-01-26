@@ -399,6 +399,8 @@ export default {
         { text: "Image", value: "image" },
         { text: "Payment Method", value: "payment_mode" },
         { text: "Date Ordered", value: "date_from" },
+         { text: "Contact Number", value: "contact_number" },
+        { text: "Address", value: "Address" },
         { text: "Actions", value: "opt" },
         ,
       ],

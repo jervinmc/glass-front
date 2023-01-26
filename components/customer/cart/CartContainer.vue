@@ -4,8 +4,16 @@
       <v-card class="pa-10">
         <div>
           <div class="text-h5">Contact Information:</div>
-          <div>Address: {{ $auth.user.address }}</div>
-          <div>Contact Number: {{ $auth.user.contact_number }}</div>
+          <div><div>Address:</div>
+            <div>
+              <v-text-field outlined dense v-model="register.address"></v-text-field>
+            </div></div>
+          <div>
+            <div>Contact Number:</div>
+            <div>
+              <v-text-field outlined dense v-model="register.contact_number"></v-text-field>
+            </div>
+          </div>
           <div>
             Fullname: {{ $auth.user.firstname }} {{ $auth.user.lastname }}
           </div>
@@ -38,13 +46,16 @@
               >Cancel</v-btn
             >
           </div>
+          <div>
+            Payment Options : 
+          </div>
           <div class="pt-4">
             <v-btn color="secondary" width="100%" @click="submitHandler"
-              >Pay COD</v-btn
+              >Cash On Delivery</v-btn
             >
             <div class="pt-4">
               <v-btn color="secondary" width="100%" @click="paymentMethod"
-                >Pay Via Paypal</v-btn
+                >Paypal</v-btn
               >
             </div>
           </div>
@@ -459,6 +470,8 @@ export default {
         var otpValue = Math.random().toString(6).slice(2);
         for (let key in this.register.cart) {
           this.register.cart[key]["payment_mode"] = "COD";
+          this.register.cart[key]["address"] = this.register.address;
+          this.register.cart[key]["contact_number"] = this.register.contact_number;
           this.register.cart[key]["status"] = "Pending";
           this.register.cart[key]['transaction_id'] = otpValue
         }
