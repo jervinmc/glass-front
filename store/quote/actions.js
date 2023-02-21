@@ -4,7 +4,9 @@ const actions = {
       "/quote/",
       data
     );
-    response.data = data;
+    // response.data = data;
+    
+    return response
   },
   async inquiry({ commit },  data ) {
     const response = await this.$axios.$post(

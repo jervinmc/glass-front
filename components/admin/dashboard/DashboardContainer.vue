@@ -166,7 +166,7 @@
         </v-col> -->
       </v-row>
     </div>
-    <div class="py-10">
+    <!-- <div class="py-10">
       <v-row>
         <v-col>
           <v-card class="pa-10">
@@ -195,7 +195,7 @@
           </v-card>
         </v-col>
       </v-row>
-    </div>
+    </div> -->
     <v-dialog v-model="view_status" width="800">
       <v-card class="pa-10">
         <v-stepper alt-labels>

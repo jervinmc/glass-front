@@ -13,6 +13,13 @@ const actions = {
       );
       response.data = data;
     },
+    async notify({ commit },  data ) {
+      const response = await this.$axios.$post(
+        "/notif/",
+        data
+      );
+      response.data = data;
+    },
     async edit({ commit },  data ) {
       const response = await this.$axios.$put(
         `/transaction/${data.id}/`,

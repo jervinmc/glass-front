@@ -20,11 +20,7 @@
         </div>
         <div>Price:</div>
         <div>
-          <v-text-field
-            v-model="register.price"
-            dense
-            outlined
-          ></v-text-field>
+          <v-text-field v-model="register.price" dense outlined></v-text-field>
         </div>
         <div>Contact Number:</div>
         <div>
@@ -37,6 +33,17 @@
         <div>List product specifications (size,color)</div>
         <div>
           <v-textarea v-model="register.message" outlined></v-textarea>
+        </div>
+        <div>
+          <div>Image</div>
+          <v-col cols="12">
+            <input
+              type="file"
+              id="fileInput"
+              ref="file"
+              @change="onFileUpload"
+            />
+          </v-col>
         </div>
         <div align="center">
           <v-col>
@@ -155,6 +162,9 @@ export default {
   components: {},
   created() {
     this.$store.dispatch("quote/view");
+    this.register.fullname = cloneDeep(
+      `${this.$auth.user.firstname} ${this.$auth.user.lastname}`
+    );
   },
   computed: {
     ...mapState("quote", ["quote_data"]),
@@ -165,12 +175,36 @@ export default {
     },
   },
   methods: {
-    submitHandler() {
+    submitHandlerCart() {
       this.register.user_id = this.$auth.user.id;
-      this.register.status = 'Pending'
-      this.$store.dispatch("quote/add", this.register).then((res) => {
-        alert("Successfully Sent!");
+      // this.register.product_id = this.$auth.user.id;
+      // this.register.product_id = this.$route.query.id;
+      this.$store.dispatch("cart/add", this.register).then((res) => {
+        alert("Successfully added to cart");
         location.reload();
+      });
+    },
+    submitHandler() {
+      let form_data = new FormData();
+        if (this.file != null && this.file != "") {
+          form_data.append("image", this.file);
+        }
+        form_data.append("user_id", this.$auth.user.id);
+        form_data.append("product_name", this.register.product_name);
+        form_data.append("message", this.register.message);
+        form_data.append("fullname", this.register.fullname);
+        form_data.append("contact_number", this.register.contact_number);
+        form_data.append("price", this.register.price);
+        form_data.append("status", 'Pending');
+
+      this.$store.dispatch("quote/add", form_data).then((res) => {
+        alert("Successfully Sent!");
+        console.log(res)
+        this.register.image = res.image
+        
+        return
+        this.submitHandlerCart()
+        // location.reload();
       });
     },
     viewDetails(item) {
@@ -308,7 +342,8 @@ export default {
         { text: "Fullname", value: "fullname" },
         { text: "Contact Number", value: "contact_number" },
         { text: "Price", value: "price" },
-         { text: "Status", value: "status" },
+        { text: "Status", value: "status" },
+        { text: "Image", value: "image" },
         // { text: "Actions", value: "opt" },
         ,
       ],

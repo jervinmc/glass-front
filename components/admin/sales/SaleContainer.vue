@@ -1,5 +1,115 @@
 <template>
   <v-sheet class="pa-10" color="">
+    <VueHtml2pdf
+      :show-layout="false"
+      :float-layout="true"
+      :enable-download="true"
+      :paginate-elements-by-height="1400"
+      filename="myPDF"
+      :pdf-quality="2"
+      :manual-pagination="false"
+      pdf-format="a4"
+      pdf-orientation="portrait"
+      pdf-content-width="800px"
+      ref="html2Pdf"
+    >
+      <v-section slot="pdf-content">
+        <div v-if="isGenerate" style="padding: 16px">
+          <v-row>
+            <v-col>
+              <div>
+                Total Amount: Php {{ total_sales }}
+              </div>
+              <!-- <div>Payment Method: </div>
+              <div>Email:</div> -->
+            </v-col>
+            <v-col align="end">
+              <!-- <div>Address: </div>
+              <div>Date Ordered:</div> -->
+            </v-col>
+          </v-row>
+          <div class="padding-top:20px;padding-bottom:20px">
+            <v-divider></v-divider>
+          </div>
+          <div>
+            <v-data-table
+              :search="search"
+              class="pa-5"
+              :headers="headers"
+              :items="sales_data"
+              :loading="isLoading"
+            >
+              <template v-slot:loading>
+                <v-skeleton-loader
+                  v-for="n in 5"
+                  :key="n"
+                  type="list-item-avatar-two-line"
+                  class="my-2"
+                ></v-skeleton-loader>
+              </template>
+              <template #[`item.total_price`]="{ item }">
+                {{ item.quantity * item.price }}
+              </template>
+              <template #[`item.is_active`]="{ item }">
+                {{ item.is_active ? "Yes" : "No" }}
+              </template>
+              <template #[`item.image`]="{ item }">
+                <v-img :src="item.image" height="100" width="100"></v-img>
+              </template>
+              <template #[`item.opt`]="{ item }">
+                <v-menu offset-y z-index="1">
+                  <template v-slot:activator="{ attrs, on }">
+                    <v-btn icon v-bind="attrs" v-on="on">
+                      <v-icon>mdi-dots-horizontal</v-icon>
+                    </v-btn>
+                  </template>
+                  <v-list dense>
+                    <v-list-item @click.stop="statusUpdate(item, 'Confirm')">
+                      <v-list-item-content>
+                        <v-list-item-title>Confirm</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item @click.stop="statusUpdate(item, 'To Ship')">
+                      <v-list-item-content>
+                        <v-list-item-title>To Ship</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item @click.stop="statusUpdate(item, 'Picked up')">
+                      <v-list-item-content>
+                        <v-list-item-title>Picked up</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item @click.stop="statusUpdate(item, 'To Receive')">
+                      <v-list-item-content>
+                        <v-list-item-title>To Receive</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item @click.stop="statusUpdate(item, 'Delievered')">
+                      <v-list-item-content>
+                        <v-list-item-title>Delievered</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item @click.stop="statusUpdate(item, 'Completed')">
+                      <v-list-item-content>
+                        <v-list-item-title>Completed</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item @click.stop="generateReceipt(item)">
+                      <v-list-item-content>
+                        <v-list-item-title>Print Receipt</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+              </template>
+            </v-data-table>
+            <div align="end">
+              <!-- Total Price : {{ selectedItem.quantity * selectedItem.price }} -->
+            </div>
+          </div>
+        </div>
+      </v-section>
+    </VueHtml2pdf>
     <div class="black--text text-h5 pb-5">
       <v-row>
         <v-col>
@@ -248,7 +358,16 @@
         <div>
           <v-card class="pa-16" elevation="1" color="white">
             <div>
-              Recently Sold
+              <v-row>
+                <v-col>
+                  Recently Sold
+                </v-col>
+                <v-col align="end">
+                    <v-btn @click="generateReceipt">
+                      Generate PDF Report
+                    </v-btn>
+                </v-col>
+              </v-row>
             </div>
             <v-data-table
               :search="search"
@@ -328,6 +447,7 @@ import { mapState, mapActions } from "vuex";
 // import DialogNotification from "../../general/DialogNotification.vue";
 // import Add from "./Add.vue";
 // import Edit from "./Edit.vue";
+import VueHtml2pdf from "vue-html2pdf";
 import VueToastr from "vue-toastr";
 import VueApexCharts from "vue-apexcharts";
 Vue.use(VueToastr, {
@@ -338,6 +458,7 @@ var cloneDeep = require("lodash.clonedeep");
 export default {
   components: {
     VueApexCharts,
+    VueHtml2pdf
   },
   created() {
     this.$store.dispatch("transaction/view");
@@ -363,6 +484,11 @@ export default {
     },
   },
   methods: {
+    generateReceipt(item) {
+      this.selectedItem = item;
+      this.isGenerate = true;
+      this.$refs.html2Pdf.generatePdf();
+    },
     viewDetails(item) {
       this.selectedStatus = item.status;
       this.view_status = true;
@@ -486,6 +612,7 @@ export default {
   },
   data() {
     return {
+      isGenerate:false,
       series: [
         {
           name: "series-1",

@@ -257,7 +257,30 @@
 </template>
 
 <script>
+import Pusher from 'pusher-js';
 export default {
+  created(){
+    var pusher = new Pusher('33efacb6a0d9c7baad00', {
+      cluster: 'ap1'
+    });
+    var channel = pusher.subscribe("notif");
+    channel.bind('my-test', function(data) {
+      if(data.message == this.$auth.user.id){
+        alert(data.title)
+      }
+      
+        // const res2 =  this.$axios
+        // .post(`/chatgetall/`, {"channel":"abc"},{
+        //   headers: {
+        //     Authorization: `Bearer ${localStorage.getItem('token')}`,
+        //   },
+        // })
+        // .then((rest) => {
+        //     this.chatList=rest.data
+        // })
+    //  alert(data)
+    },this);
+  },
   methods: {
     logout() {
       this.$auth.logout().then(() => {

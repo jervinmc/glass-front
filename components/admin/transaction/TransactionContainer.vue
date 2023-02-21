@@ -14,26 +14,19 @@
       ref="html2Pdf"
     >
       <v-section slot="pdf-content">
-        <div v-if="isGenerate" style="padding:16px">
+        <div v-if="isGenerate" style="padding: 16px">
           <v-row>
             <v-col>
               <div>
-              Full Name:  {{selectedItem.users.firstname}}  {{selectedItem.users.lastname}}
+                Full Name: {{ selectedItem.users.firstname }}
+                {{ selectedItem.users.lastname }}
               </div>
-              <div>
-              Payment Method:  {{selectedItem.payment_method}}
-              </div>
-              <div>
-               Email: {{selectedItem.users.email}}
-              </div>
+              <div>Payment Method: {{ selectedItem.payment_method }}</div>
+              <div>Email: {{ selectedItem.users.email }}</div>
             </v-col>
             <v-col align="end">
-              <div>
-             Address:  {{selectedItem.users.address}}
-              </div>
-              <div>
-               Date Ordered: {{selectedItem.date_created}}
-              </div>
+              <div>Address: {{ selectedItem.users.address }}</div>
+              <div>Date Ordered: {{ selectedItem.date_created }}</div>
             </v-col>
           </v-row>
           <div class="padding-top:20px;padding-bottom:20px">
@@ -41,79 +34,79 @@
           </div>
           <div>
             <v-data-table
-          :search="search"
-          class="pa-5"
-          :headers="headers_receipt"
-          :items="[selectedItem]"
-          :loading="isLoading"
-        >
-          <template v-slot:loading>
-            <v-skeleton-loader
-              v-for="n in 5"
-              :key="n"
-              type="list-item-avatar-two-line"
-              class="my-2"
-            ></v-skeleton-loader>
-          </template>
-           <template #[`item.total_price`]="{ item }">
-            {{ item.quantity * item.price}}
-          </template>
-          <template #[`item.is_active`]="{ item }">
-            {{ item.is_active ? "Yes" : "No" }}
-          </template>
-          <template #[`item.image`]="{ item }">
-            <v-img :src="item.image" height="100" width="100"></v-img>
-          </template>
-          <template #[`item.opt`]="{ item }">
-            <v-menu offset-y z-index="1">
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn icon v-bind="attrs" v-on="on">
-                  <v-icon>mdi-dots-horizontal</v-icon>
-                </v-btn>
+              :search="search"
+              class="pa-5"
+              :headers="headers_receipt"
+              :items="[selectedItem]"
+              :loading="isLoading"
+            >
+              <template v-slot:loading>
+                <v-skeleton-loader
+                  v-for="n in 5"
+                  :key="n"
+                  type="list-item-avatar-two-line"
+                  class="my-2"
+                ></v-skeleton-loader>
               </template>
-              <v-list dense>
-                <v-list-item @click.stop="statusUpdate(item, 'Confirm')">
-                  <v-list-item-content>
-                    <v-list-item-title>Confirm</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item @click.stop="statusUpdate(item, 'To Ship')">
-                  <v-list-item-content>
-                    <v-list-item-title>To Ship</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                 <v-list-item @click.stop="statusUpdate(item, 'Picked up')">
-                  <v-list-item-content>
-                    <v-list-item-title>Picked up</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                 <v-list-item @click.stop="statusUpdate(item, 'To Receive')">
-                  <v-list-item-content>
-                    <v-list-item-title>To Receive</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item @click.stop="statusUpdate(item, 'Delievered')">
-                  <v-list-item-content>
-                    <v-list-item-title>Delievered</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item @click.stop="statusUpdate(item, 'Completed')">
-                  <v-list-item-content>
-                    <v-list-item-title>Completed</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                 <v-list-item @click.stop="generateReceipt(item)">
-                  <v-list-item-content>
-                    <v-list-item-title>Print Receipt</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-          </template>
-        </v-data-table>
-        <div align="end">
-          Total Price : {{selectedItem.quantity * selectedItem.price}}
-        </div>
+              <template #[`item.total_price`]="{ item }">
+                {{ item.quantity * item.price }}
+              </template>
+              <template #[`item.is_active`]="{ item }">
+                {{ item.is_active ? "Yes" : "No" }}
+              </template>
+              <template #[`item.image`]="{ item }">
+                <v-img :src="item.image" height="100" width="100"></v-img>
+              </template>
+              <template #[`item.opt`]="{ item }">
+                <v-menu offset-y z-index="1">
+                  <template v-slot:activator="{ attrs, on }">
+                    <v-btn icon v-bind="attrs" v-on="on">
+                      <v-icon>mdi-dots-horizontal</v-icon>
+                    </v-btn>
+                  </template>
+                  <v-list dense>
+                    <v-list-item @click.stop="statusUpdate(item, 'Confirm')">
+                      <v-list-item-content>
+                        <v-list-item-title>Confirm</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item @click.stop="statusUpdate(item, 'To Ship')">
+                      <v-list-item-content>
+                        <v-list-item-title>To Ship</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item @click.stop="statusUpdate(item, 'Picked up')">
+                      <v-list-item-content>
+                        <v-list-item-title>Picked up</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item @click.stop="statusUpdate(item, 'To Receive')">
+                      <v-list-item-content>
+                        <v-list-item-title>To Receive</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item @click.stop="statusUpdate(item, 'Delievered')">
+                      <v-list-item-content>
+                        <v-list-item-title>Delievered</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item @click.stop="statusUpdate(item, 'Completed')">
+                      <v-list-item-content>
+                        <v-list-item-title>Completed</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item @click.stop="generateReceipt(item)">
+                      <v-list-item-content>
+                        <v-list-item-title>Print Receipt</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+              </template>
+            </v-data-table>
+            <div align="end">
+              Total Price : {{ selectedItem.quantity * selectedItem.price }}
+            </div>
           </div>
         </div>
       </v-section>
@@ -124,7 +117,14 @@
           <v-stepper-header>
             <v-stepper-step step="1" complete> Pending </v-stepper-step>
             <v-divider></v-divider>
-            <v-stepper-step step="2" :complete="selectedStatus=='Approved' || selectedStatus=='Delivered'"> Approved </v-stepper-step>
+            <v-stepper-step
+              step="2"
+              :complete="
+                selectedStatus == 'Approved' || selectedStatus == 'Delivered'
+              "
+            >
+              Approved
+            </v-stepper-step>
             <v-divider></v-divider>
             <v-stepper-step step="3">Delivered</v-stepper-step>
           </v-stepper-header>
@@ -159,21 +159,27 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12">
-              <v-row>
-            <v-spacer></v-spacer>
-            <v-col align="end">
-              <v-btn class="rounded-lg" color="secondary" @click="updateSize('-')"
-                >-</v-btn
-              >
-            </v-col>
-            <v-col align="end" cols="auto">
-              <v-btn class="rounded-lg" color="secondary" @click="updateSize('+')"
-                >+</v-btn
-              >
-            </v-col>
-          </v-row>
+            <v-row>
+              <v-spacer></v-spacer>
+              <v-col align="end">
+                <v-btn
+                  class="rounded-lg"
+                  color="secondary"
+                  @click="updateSize('-')"
+                  >-</v-btn
+                >
+              </v-col>
+              <v-col align="end" cols="auto">
+                <v-btn
+                  class="rounded-lg"
+                  color="secondary"
+                  @click="updateSize('+')"
+                  >+</v-btn
+                >
+              </v-col>
+            </v-row>
           </v-col>
-          <v-col cols="12" v-for="(x,index) in size_counter" :key="x">
+          <v-col cols="12" v-for="(x, index) in size_counter" :key="x">
             <v-row>
               <v-col cols="6">
                 <v-text-field
@@ -255,6 +261,91 @@
       </v-row>
     </div>
     <div>
+      <v-row>
+        <v-col>
+          <div>
+            From
+            <div class="text-h5">
+              <v-menu
+                ref="fromMenu"
+                v-model="fromMenu"
+                :close-on-content-click="false"
+                :return-value.sync="date.from"
+                transition="scale-transition"
+                offset-y
+                min-width="auto"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="date.from"
+                    outlined
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker v-model="date.from" no-title scrollable>
+                  <v-spacer></v-spacer>
+                  <v-btn text color="primary" @click="fromMenu = false">
+                    Cancel
+                  </v-btn>
+                  <v-btn
+                    text
+                    color="primary"
+                    @click="$refs.fromMenu.save(date.from)"
+                  >
+                    OK
+                  </v-btn>
+                </v-date-picker>
+              </v-menu>
+            </div>
+          </div>
+        </v-col>
+        <v-col>
+          <div>
+            To
+            <div class="text-h5">
+              <v-menu
+                ref="toMenu"
+                v-model="toMenu"
+                :close-on-content-click="false"
+                :return-value.sync="date.to"
+                transition="scale-transition"
+                offset-y
+                min-width="auto"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="date.to"
+                    outlined
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker v-model="date.to" no-title scrollable>
+                  <v-spacer></v-spacer>
+                  <v-btn text color="primary" @click="toMenu = false">
+                    Cancel
+                  </v-btn>
+                  <v-btn
+                    text
+                    color="primary"
+                    @click="$refs.toMenu.save(date.to)"
+                  >
+                    OK
+                  </v-btn>
+                </v-date-picker>
+              </v-menu>
+            </div>
+          </div>
+        </v-col>
+        <v-col>
+          <v-btn @click="resetData"> Reset </v-btn>
+        </v-col>
+      </v-row>
+    </div>
+    <div>
       <v-card class="pa-16" elevation="1" color="white">
         <div class="pt-10">
           <v-text-field
@@ -269,7 +360,7 @@
           :search="search"
           class="pa-5"
           :headers="headers"
-          :items="transaction_data"
+          :items="filteredData"
           :loading="isLoading"
         >
           <template v-slot:loading>
@@ -280,11 +371,11 @@
               class="my-2"
             ></v-skeleton-loader>
           </template>
-           <template #[`item.date_from`]="{ item }">
-            {{ $FormatDate(item.date_from)}}
+          <template #[`item.date_from`]="{ item }">
+            {{ $FormatDate(item.date_from) }}
           </template>
-           <template #[`item.total_price`]="{ item }">
-            {{ item.quantity * item.price}}
+          <template #[`item.total_price`]="{ item }">
+            {{ item.quantity * item.price }}
           </template>
           <template #[`item.is_active`]="{ item }">
             {{ item.is_active ? "Yes" : "No" }}
@@ -305,12 +396,12 @@
                     <v-list-item-title>To Ship</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
-                 <v-list-item @click.stop="statusUpdate(item, 'Picked up')">
+                <v-list-item @click.stop="statusUpdate(item, 'Picked up')">
                   <v-list-item-content>
                     <v-list-item-title>Picked up</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
-                 <v-list-item @click.stop="statusUpdate(item, 'To Receive')">
+                <v-list-item @click.stop="statusUpdate(item, 'To Receive')">
                   <v-list-item-content>
                     <v-list-item-title>To Receive</v-list-item-title>
                   </v-list-item-content>
@@ -325,7 +416,7 @@
                     <v-list-item-title>Completed</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
-                 <v-list-item @click.stop="generateReceipt(item)">
+                <v-list-item @click.stop="generateReceipt(item)">
                   <v-list-item-content>
                     <v-list-item-title>Print Receipt</v-list-item-title>
                   </v-list-item-content>
@@ -354,41 +445,66 @@ Vue.use(VueToastr, {
 
 var cloneDeep = require("lodash.clonedeep");
 export default {
-  components: {VueHtml2pdf},
+  components: { VueHtml2pdf },
   created() {
     this.$store.dispatch("transaction/view");
   },
   computed: {
     ...mapState("transaction", ["transaction_data"]),
+    filteredTransaction() {
+      return [];
+    },
     filteredData() {
-      return this.exercise_data.filter((data) => data.category == this.status);
+      if (this.date.from == "" || this.date.from == undefined) {
+        return this.transaction_data;
+      } else {
+        // alert(this.date.from)
+        var date_from = this.$FormatDate(this.date.from);
+        var date_to = this.$FormatDate(this.date.to);
+        // return this.transaction_data.filter(data=?)
+        return this.transaction_data.filter(
+          (data) =>
+            this.$FormatDate(data.date_from) > date_from &&
+            this.$FormatDate(data.date_from) < date_to
+        );
+      }
     },
   },
   methods: {
-    generateReceipt(item){
+    resetData() {
+      this.date = {
+        from: "",
+        to: "",
+      };
+    },
+    generateReceipt(item) {
       this.selectedItem = item;
       this.isGenerate = true;
       this.$refs.html2Pdf.generatePdf();
-    },  
+    },
     viewDetails(item) {
       this.selectedStatus = item.status;
       this.view_status = true;
     },
-    statusUpdate(item,status){
-      this.$store.dispatch('transaction/edit',{id:item.id,status:status}).then(res=>{
-        location.reload()
-      })
+    statusUpdate(item, status) {
+      this.$store
+        .dispatch("transaction/edit", { id: item.id, status: status })
+        .then((res) => {
+          this.$store.dispatch('transaction/notify',{
+            user_id:item.user_id, title:`Your item ID : ${item.id} is now ${status}`
+          })
+          // location.reload();
+        });
     },
-    updateSize(operation){
-      if(operation=='+'){
-        this.size_counter.push('')
-        this.size.push('')
-        this.price.push('')
-      }
-      else{
-        this.size_counter.splice(0,1)
-        this.size.splice(0,1)
-        this.price.splice(0,1)
+    updateSize(operation) {
+      if (operation == "+") {
+        this.size_counter.push("");
+        this.size.push("");
+        this.price.push("");
+      } else {
+        this.size_counter.splice(0, 1);
+        this.size.splice(0, 1);
+        this.price.splice(0, 1);
       }
     },
     async submitHandler() {
@@ -404,14 +520,18 @@ export default {
         form_data.append("price", this.register.price);
         form_data.append("quantity", this.register.quantity);
         form_data.append("description", this.register.description);
-        await this.$store.dispatch("product/add", form_data).then((res)=>{
-            this.$store.dispatch("size/add",{"size":this.size,"price":this.price,"product_id":res.id} )
-        })
+        await this.$store.dispatch("product/add", form_data).then((res) => {
+          this.$store.dispatch("size/add", {
+            size: this.size,
+            price: this.price,
+            product_id: res.id,
+          });
+        });
         this.isAdd = false;
         alert("Successfully Added!");
-        location.reload()
+        location.reload();
       } catch (error) {
-        alert(error)
+        alert(error);
       }
     },
     onFileUpload(e) {
@@ -488,15 +608,19 @@ export default {
   },
   data() {
     return {
-      isGenerate:false,
-      selectedItem:{},
-      selectedStatus:'Pending',
-      view_status:false,
-      size_counter:[],
+      date: {
+        from: "",
+        to: "",
+      },
+      isGenerate: false,
+      selectedItem: {},
+      selectedStatus: "Pending",
+      view_status: false,
+      size_counter: [],
       isAdd: false,
       register: {
-        size:[],
-        price:[],
+        size: [],
+        price: [],
       },
       addForm: false,
       isConfirmationApprove: false,
@@ -506,8 +630,8 @@ export default {
       file: "",
       addForm: false,
       editForm: false,
-      size:[],
-      price:[],
+      size: [],
+      price: [],
       account_type: "Resident",
       selectedItem: {},
       status: "Easy",
@@ -530,7 +654,7 @@ export default {
         { text: "Image", value: "image" },
         { text: "Status", value: "status" },
         { text: "Date Ordered", value: "date_from" },
-         { text: "Contact Number", value: "contact_number" },
+        { text: "Contact Number", value: "contact_number" },
         { text: "Address", value: "Address" },
         // { text: "Address", value: "address" },
         { text: "Actions", value: "opt" },

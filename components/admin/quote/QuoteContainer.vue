@@ -239,6 +239,7 @@ export default {
         { text: "Contact Number", value: "contact_number" },
         { text: "Price", value: "price" },
         { text: "Status", value: "status" },
+        { text: "Image", value: "image" },
         // { text: "Address", value: "address" },
         { text: "Actions", value: "opt" },
         ,

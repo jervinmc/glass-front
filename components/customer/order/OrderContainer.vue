@@ -164,7 +164,7 @@
           :search="search"
           class="pa-5"
           :headers="headers"
-          :items="myOrder"
+          :items="filteredData"
           :loading="isLoading"
         >
           <template v-slot:loading>
@@ -175,7 +175,6 @@
               class="my-2"
             ></v-skeleton-loader>
           </template>
-          
           <template #[`item.date_from`]="{ item }">
             {{ $FormatDate(item.date_from)}}
           </template>
@@ -230,14 +229,27 @@ export default {
   },
   computed: {
     ...mapState("transaction", ["transaction_data"]),
+    filteredData() {
+      if(this.date.from=='' || this.date.from==undefined ){
+        return this.myOrder
+      }
+      else{
+        // alert(this.date.from)
+        var date_from = this.$FormatDate(this.date.from)
+        var date_to = this.$FormatDate(this.date.to)
+        // return this.transaction_data.filter(data=?)
+        return this.myOrder.filter(data=>this.$FormatDate(data.date_from)>date_from && this.$FormatDate(data.date_from)<date_to)
+      }
+      
+    },
     myOrder() {
       return this.transaction_data.filter(
         (data) => data.user_id == this.$auth.user.id
       );
     },
-    filteredData() {
-      return this.exercise_data.filter((data) => data.category == this.status);
-    },
+    // filteredData() {
+    //   return this.exercise_data.filter((data) => data.category == this.status);
+    // },
   },
   methods: {
     viewDetails(item) {
