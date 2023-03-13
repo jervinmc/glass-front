@@ -436,7 +436,7 @@ export default {
         { text: "Total Price", value: "total_price" },
         { text: "Image", value: "image" },
         { text: "Payment Method", value: "payment_mode" },
-        { text: "Actions", value: "opt" },
+        // { text: "Actions", value: "opt" },
         ,
       ],
     };

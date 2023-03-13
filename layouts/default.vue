@@ -7,6 +7,7 @@
         $route.name != 'redeem' &&
         $route.name != 'login' &&
         $route.name != 'verify' &&
+        $route.name != 'login-customer' &&
         $route.name != 'register'
       "
       v-model="drawer"
@@ -155,7 +156,18 @@
         @click="pushRoute('login')"
         v-if="!$auth.loggedIn"
       >
-        Login
+        Login as Admin
+      </div>
+      <div
+        :class="
+          $route.name == 'login'
+            ? 'px-10 pointer secondary--text'
+            : 'px-10 pointer white--text'
+        "
+        @click="pushRoute('login/customer')"
+        v-if="!$auth.loggedIn"
+      >
+        Login as Customer
       </div>
       <div
         :class="
@@ -362,11 +374,11 @@ export default {
           title: "Customize Order",
           to: "/admin/quote",
         },
-        {
-          icon: "mdi-chart-bubble",
-          title: "Sales",
-          to: "/admin/sales",
-        },
+        // {
+        //   icon: "mdi-chart-bubble",
+        //   title: "Sales",
+        //   to: "/admin/sales",
+        // },
       ],
       miniVariant: false,
       right: true,

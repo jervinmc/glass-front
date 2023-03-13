@@ -26,9 +26,20 @@
             outlined
           ></v-text-field>
         </div>
-        <div>Message:</div>
+        <div>List product specification(size,color):</div>
         <div>
           <v-textarea v-model="register.message" outlined></v-textarea>
+        </div>
+        <div>
+          <div>Image</div>
+          <v-col cols="12">
+            <input
+              type="file"
+              id="fileInput"
+              ref="file"
+              @change="onFileUpload"
+            />
+          </v-col>
         </div>
         <div align="center">
           <v-col>
@@ -111,6 +122,9 @@ export default {
     }
   },
   created() {
+    if(this.$auth.loggedIn){
+      this.register.fullname = this.$auth.user.firstname + ' ' + this.$auth.user.lastname 
+    }
     this.isShow = true;
     this.$store.dispatch("product/view");
   },
@@ -123,15 +137,52 @@ export default {
       }
      
     },
-    submitHandler(){
-      this.$store.dispatch('quote/add',this.register).then(res=>{
-        alert('Successfully Sent!')
-        location.reload()
-      })
-    }
+    onFileUpload(e) {
+      this.file = e;
+      e = e.target.files[0];
+      if (e["name"].length > 100) {
+        alert("255 characters exceeded filename.");
+        return;
+      }
+      try {
+        if (e.size > 16000000) {
+          alert("Only 15mb file can be accepted.");
+          return;
+        }
+      } catch (error) {
+        alert(error);
+        return;
+      }
+      console.log(e);
+      this.file = e;
+    },
+    submitHandler() {
+      let form_data = new FormData();
+        if (this.file != null && this.file != "") {
+          form_data.append("image", this.file);
+        }
+        form_data.append("user_id", this.$auth.user.id);
+        form_data.append("product_name", this.register.product_name);
+        form_data.append("message", this.register.message);
+        form_data.append("fullname", this.register.fullname);
+        form_data.append("contact_number", this.register.contact_number);
+        form_data.append("price", this.register.price);
+        form_data.append("status", 'Pending');
+
+      this.$store.dispatch("quote/add", form_data).then((res) => {
+        alert("Successfully Sent!");
+        console.log(res)
+        this.register.image = res.image
+        
+        return
+        this.submitHandlerCart()
+        // location.reload();
+      });
+    },
   },
   data() {
     return {
+      file:'',
       product_type:'All',
       register: {},
       isQuote: false,

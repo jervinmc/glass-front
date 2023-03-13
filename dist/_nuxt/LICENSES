@@ -1,4 +1,11 @@
 /*!
+ * vue-toastr v2.1.2 
+ * (c) 2019 s4l1h
+ * Released under the MIT License.
+ */
+
+
+/*!
  * @overview es6-promise - a tiny implementation of Promises/A+.
  * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
  * @license   Licensed under MIT license
@@ -7,15 +14,15 @@
  */
 
 /*!
- * html2canvas 1.4.1 <https://html2canvas.hertzen.com>
- * Copyright (c) 2022 Niklas von Hertzen <https://hertzen.com>
- * Released under MIT License
+ * ApexCharts v3.36.2
+ * (c) 2018-2022 ApexCharts
+ * Released under the MIT License.
  */
 
 /*!
- * vue-toastr v2.1.2 
- * (c) 2019 s4l1h
- * Released under the MIT License.
+ * html2canvas 1.4.1 <https://html2canvas.hertzen.com>
+ * Copyright (c) 2022 Niklas von Hertzen <https://hertzen.com>
+ * Released under MIT License
  */
 
 /*! *****************************************************************************
@@ -32,6 +39,14 @@
     OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
     PERFORMANCE OF THIS SOFTWARE.
     ***************************************************************************** */
+
+/*! svg.draggable.js - v2.2.2 - 2019-01-08
+  * https://github.com/svgdotjs/svg.draggable.js
+  * Copyright (c) 2019 Wout Fierens; Licensed MIT */
+
+/*! svg.filter.js - v2.0.2 - 2016-02-24
+  * https://github.com/wout/svg.filter.js
+  * Copyright (c) 2016 Wout Fierens; Licensed MIT */
 
 /**
    * A class to parse color values
@@ -123,60 +138,10 @@
 
 
 /*!
- * ApexCharts v3.36.2
- * (c) 2018-2022 ApexCharts
- * Released under the MIT License.
- */
-
-/*! svg.draggable.js - v2.2.2 - 2019-01-08
-  * https://github.com/svgdotjs/svg.draggable.js
-  * Copyright (c) 2019 Wout Fierens; Licensed MIT */
-
-/*! svg.filter.js - v2.0.2 - 2016-02-24
-  * https://github.com/wout/svg.filter.js
-  * Copyright (c) 2016 Wout Fierens; Licensed MIT */
-
-
-/**@preserve
-   *  ====================================================================
-   * jsPDF PNG PlugIn
-   * Copyright (c) 2014 James Robb, https://github.com/jamesbrobb
-   *
-   * 
-   * ====================================================================
-   */
-
-
-/*!
  * vue-toastr v2.1.2 
  * (c) 2019 s4l1h
  * Released under the MIT License.
  */
-
-
-/*!
- * Pusher JavaScript Library v8.0.1
- * https://pusher.com/
- *
- * Copyright 2020, Pusher
- * Released under the MIT licence.
- */
-
-/*!
- * vue-client-only v0.0.0-semantic-release
- * (c) 2021-present egoist <0x142857@gmail.com>
- * Released under the MIT License.
- */
-
-/*!
- * vue-no-ssr v1.1.1
- * (c) 2018-present egoist <0x142857@gmail.com>
- * Released under the MIT License.
- */
-
-//! moment.js
-
-//! moment.js locale configuration
 
 
 /*!
@@ -206,10 +171,28 @@
 
 
 /*!
- * vue-toastr v2.1.2 
- * (c) 2019 s4l1h
+ * Pusher JavaScript Library v8.0.1
+ * https://pusher.com/
+ *
+ * Copyright 2020, Pusher
+ * Released under the MIT licence.
+ */
+
+/*!
+ * vue-client-only v0.0.0-semantic-release
+ * (c) 2021-present egoist <0x142857@gmail.com>
  * Released under the MIT License.
  */
+
+/*!
+ * vue-no-ssr v1.1.1
+ * (c) 2018-present egoist <0x142857@gmail.com>
+ * Released under the MIT License.
+ */
+
+//! moment.js
+
+//! moment.js locale configuration
 
 
 /*!

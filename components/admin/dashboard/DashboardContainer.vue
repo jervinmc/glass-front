@@ -2,152 +2,152 @@
   <div class="pa-10">
     <v-row>
       <v-col>
-          <v-card class="pa-5" color="#0086ca" dark>
-            <v-row>
-              <v-col cols="8">
-                <div class="text-h6">
-                  {{users.length}}
-                </div>
-                <div>
-                  Total Users
-                </div>
-              </v-col>
-              <v-col align="end">
-                  <div>
-                    <v-icon>
-                      mdi-account
-                    </v-icon>
-                  </div>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
-        <v-col>
-          <v-card class="pa-5" color="#39ca74" dark>
-            <v-row>
-              <v-col cols="8">
-                <div class="text-h6">
-                  {{product_data.length}}
-                </div>
-                <div>
-                  Total Products
-                </div>
-              </v-col>
-              <v-col align="end">
-                  <div>
-                    <v-icon>
-                      mdi-list-box
-                    </v-icon>
-                  </div>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
-        <v-col>
-          <v-card class="pa-5" color="#ffaf3a" dark>
-            <v-row>
-              <v-col cols="8">
-                <div class="text-h6">
-                  {{transaction_data.length}}
-                </div>
-                <div>
-                  Total Orders
-                </div>
-              </v-col>
-              <v-col align="end">
-                  <div>
-                    <v-icon>
-                      mdi-cart-variant
-                    </v-icon>
-                  </div>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
-        <v-col>
-          <v-card class="pa-5" color="#e67e22" dark>
-            <v-row>
-              <v-col cols="8">
-                <div class="text-h6">
-                  {{quote_data.length}}
-                </div>
-                <div>
-                  Total Quotes
-                </div>
-              </v-col>
-              <v-col align="end">
-                  <div>
-                    <v-icon>
-                      mdi-cart-variant
-                    </v-icon>
-                  </div>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
+        <v-card class="pa-5" color="#0086ca" dark>
+          <v-row>
+            <v-col cols="8">
+              <div class="text-h6">
+                {{ users.length }}
+              </div>
+              <div>
+                Total Users
+              </div>
+            </v-col>
+            <v-col align="end">
+              <div>
+                <v-icon>
+                  mdi-account
+                </v-icon>
+              </div>
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-col>
+      <v-col>
+        <v-card class="pa-5" color="#39ca74" dark>
+          <v-row>
+            <v-col cols="8">
+              <div class="text-h6">
+                {{ product_data.length }}
+              </div>
+              <div>
+                Total Products
+              </div>
+            </v-col>
+            <v-col align="end">
+              <div>
+                <v-icon>
+                  mdi-list-box
+                </v-icon>
+              </div>
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-col>
+      <v-col>
+        <v-card class="pa-5" color="#ffaf3a" dark>
+          <v-row>
+            <v-col cols="8">
+              <div class="text-h6">
+                {{ transaction_data.length }}
+              </div>
+              <div>
+                Total Orders
+              </div>
+            </v-col>
+            <v-col align="end">
+              <div>
+                <v-icon>
+                  mdi-cart-variant
+                </v-icon>
+              </div>
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-col>
+      <v-col>
+        <v-card class="pa-5" color="#e67e22" dark>
+          <v-row>
+            <v-col cols="8">
+              <div class="text-h6">
+                {{ quote_data.length }}
+              </div>
+              <div>
+                Customize Orders
+              </div>
+            </v-col>
+            <v-col align="end">
+              <div>
+                <v-icon>
+                  mdi-cart-variant
+                </v-icon>
+              </div>
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-col>
     </v-row>
-    <v-sheet  color="">
-    <!-- <div class="black--text text-h5 pb-5">
+    <v-sheet color="">
+      <!-- <div class="black--text text-h5 pb-5">
       <v-row>
         <v-col>
           <b>Sales</b>
         </v-col>
       </v-row>
     </div> -->
-    <div >
-      <v-row>
-        <v-col>
-          <v-card class="pa-5" color="#0086ca" dark>
-            <v-row>
-              <v-col cols="8">
-                <div class="text-h6">
-                  {{ sales_data.length  }}
-                </div>
-                <div>New Orders</div>
-              </v-col>
-              <v-col align="end">
-                <div>
-                  <v-icon> mdi-account </v-icon>
-                </div>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
-        <v-col>
-          <v-card class="pa-5" color="#39ca74" dark>
-            <v-row>
-              <v-col cols="8">
-                <div class="text-h6">
-                  {{ total_sales }}
-                </div>
-                <div>Total Income</div>
-              </v-col>
-              <v-col align="end">
-                <div>
-                  <v-icon> mdi-list-box </v-icon>
-                </div>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
-        <v-col>
-          <v-card class="pa-5" color="#ffaf3a" dark>
-            <v-row>
-              <v-col cols="8">
-                <div class="text-h6">
-                  {{ 0 }}
-                </div>
-                <div>Product Sold</div>
-              </v-col>
-              <v-col align="end">
-                <div>
-                  <v-icon> mdi-cart-variant </v-icon>
-                </div>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
-        <!-- <v-col>
+      <div>
+        <v-row>
+          <v-col>
+            <v-card class="pa-5" color="#0086ca" dark>
+              <v-row>
+                <v-col cols="8">
+                  <div class="text-h6">
+                    {{ sales_data.length }}
+                  </div>
+                  <div>New Orders</div>
+                </v-col>
+                <v-col align="end">
+                  <div>
+                    <v-icon> mdi-account </v-icon>
+                  </div>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-col>
+          <v-col>
+            <v-card class="pa-5" color="#39ca74" dark>
+              <v-row>
+                <v-col cols="8">
+                  <div class="text-h6">
+                    {{ total_sales }}
+                  </div>
+                  <div>Total Income</div>
+                </v-col>
+                <v-col align="end">
+                  <div>
+                    <v-icon> mdi-list-box </v-icon>
+                  </div>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-col>
+          <v-col>
+            <v-card class="pa-5" color="#ffaf3a" dark>
+              <v-row>
+                <v-col cols="8">
+                  <div class="text-h6">
+                    {{ 0 }}
+                  </div>
+                  <div>Product Sold</div>
+                </v-col>
+                <v-col align="end">
+                  <div>
+                    <v-icon> mdi-cart-variant </v-icon>
+                  </div>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-col>
+          <!-- <v-col>
           <v-card class="pa-5" color="#e67e22" dark>
             <v-row>
               <v-col cols="8">
@@ -164,9 +164,9 @@
             </v-row>
           </v-card>
         </v-col> -->
-      </v-row>
-    </div>
-    <!-- <div class="py-10">
+        </v-row>
+      </div>
+      <!-- <div class="py-10">
       <v-row>
         <v-col>
           <v-card class="pa-10">
@@ -196,236 +196,295 @@
         </v-col>
       </v-row>
     </div> -->
-    <v-dialog v-model="view_status" width="800">
-      <v-card class="pa-10">
-        <v-stepper alt-labels>
-          <v-stepper-header>
-            <v-stepper-step step="1" complete> Pending </v-stepper-step>
-            <v-divider></v-divider>
-            <v-stepper-step
-              step="2"
-              :complete="
+      <v-dialog v-model="view_status" width="800">
+        <v-card class="pa-10">
+          <v-stepper alt-labels>
+            <v-stepper-header>
+              <v-stepper-step step="1" complete> Pending </v-stepper-step>
+              <v-divider></v-divider>
+              <v-stepper-step step="2" :complete="
                 selectedStatus == 'Approved' || selectedStatus == 'Delivered'
-              "
-            >
-              Approved
-            </v-stepper-step>
-            <v-divider></v-divider>
-            <v-stepper-step step="3">Delivered</v-stepper-step>
-          </v-stepper-header>
-        </v-stepper>
-      </v-card>
-    </v-dialog>
-    <v-dialog width="900" v-model="isAdd">
-      <v-card class="pa-16">
+              ">
+                Approved
+              </v-stepper-step>
+              <v-divider></v-divider>
+              <v-stepper-step step="3">Delivered</v-stepper-step>
+            </v-stepper-header>
+          </v-stepper>
+        </v-card>
+      </v-dialog>
+      <v-dialog width="900" v-model="isAdd">
+        <v-card class="pa-16">
+          <v-row>
+            <v-col cols="12">
+              <v-text-field v-model="register.product_name" outlined dense placeholder="Product Name"></v-text-field>
+            </v-col>
+            <v-col cols="12">
+              <v-text-field v-model="register.price" outlined dense placeholder="Price"></v-text-field>
+            </v-col>
+            <v-col cols="12">
+              <v-text-field v-model="register.quantity" outlined dense placeholder="Quantity"></v-text-field>
+            </v-col>
+            <v-col cols="12">
+              <v-row>
+                <v-spacer></v-spacer>
+                <v-col align="end">
+                  <v-btn class="rounded-lg" color="secondary" @click="updateSize('-')">-</v-btn>
+                </v-col>
+                <v-col align="end" cols="auto">
+                  <v-btn class="rounded-lg" color="secondary" @click="updateSize('+')">+</v-btn>
+                </v-col>
+              </v-row>
+            </v-col>
+            <v-col cols="12" v-for="(x, index) in size_counter" :key="x">
+              <v-row>
+                <v-col cols="6">
+                  <v-text-field v-model="size[index]" outlined dense placeholder="Size"></v-text-field>
+                </v-col>
+                <v-col cols="6">
+                  <v-text-field v-model="price[index]" outlined dense placeholder="Price"></v-text-field>
+                </v-col>
+              </v-row>
+            </v-col>
+            <v-col cols="12">
+              <v-textarea outlined dense placeholder="Description" v-model="register.description"></v-textarea>
+            </v-col>
+            <v-col cols="12">
+              <v-select outlined dense v-model="register.category" placeholder="Category"
+                :items="['Windows', 'Door', 'Tables', 'Aquarium']"></v-select>
+            </v-col>
+            <v-col cols="12">
+              <input type="file" id="fileInput" ref="file" @change="onFileUpload" />
+            </v-col>
+            <v-col cols="12">
+              <v-row>
+                <v-col align="end">
+                  <v-btn outlined class="rounded-lg" @click="isAdd = false">Cancel</v-btn>
+                </v-col>
+                <v-col>
+                  <v-btn class="rounded-lg" color="secondary" @click="submitHandler">Submit</v-btn>
+                </v-col>
+              </v-row>
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-dialog>
+
+      <v-row>
         <v-row>
-          <v-col cols="12">
-            <v-text-field
-              v-model="register.product_name"
-              outlined
-              dense
-              placeholder="Product Name"
-            ></v-text-field>
+          <v-col>
+            <div>
+              From
+              <div class="text-h5">
+                <v-menu ref="fromMenu" v-model="fromMenu" :close-on-content-click="false" :return-value.sync="date.from"
+                  transition="scale-transition" offset-y min-width="auto">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field v-model="date.from" outlined readonly v-bind="attrs" v-on="on"></v-text-field>
+                  </template>
+                  <v-date-picker v-model="date.from" no-title scrollable>
+                    <v-spacer></v-spacer>
+                    <v-btn text color="primary" @click="fromMenu = false">
+                      Cancel
+                    </v-btn>
+                    <v-btn text color="primary" @click="$refs.fromMenu.save(date.from)">
+                      OK
+                    </v-btn>
+                  </v-date-picker>
+                </v-menu>
+              </div>
+            </div>
           </v-col>
-          <v-col cols="12">
-            <v-text-field
-              v-model="register.price"
-              outlined
-              dense
-              placeholder="Price"
-            ></v-text-field>
+          <v-col>
+            <div>
+              To
+              <div class="text-h5">
+                <v-menu ref="toMenu" v-model="toMenu" :close-on-content-click="false" :return-value.sync="date.to"
+                  transition="scale-transition" offset-y min-width="auto">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field v-model="date.to" outlined readonly v-bind="attrs" v-on="on"></v-text-field>
+                  </template>
+                  <v-date-picker v-model="date.to" no-title scrollable>
+                    <v-spacer></v-spacer>
+                    <v-btn text color="primary" @click="toMenu = false">
+                      Cancel
+                    </v-btn>
+                    <v-btn text color="primary" @click="$refs.toMenu.save(date.to)">
+                      OK
+                    </v-btn>
+                  </v-date-picker>
+                </v-menu>
+              </div>
+            </div>
           </v-col>
-          <v-col cols="12">
-            <v-text-field
-              v-model="register.quantity"
-              outlined
-              dense
-              placeholder="Quantity"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12">
-            <v-row>
-              <v-spacer></v-spacer>
-              <v-col align="end">
-                <v-btn
-                  class="rounded-lg"
-                  color="secondary"
-                  @click="updateSize('-')"
-                  >-</v-btn
-                >
-              </v-col>
-              <v-col align="end" cols="auto">
-                <v-btn
-                  class="rounded-lg"
-                  color="secondary"
-                  @click="updateSize('+')"
-                  >+</v-btn
-                >
-              </v-col>
-            </v-row>
-          </v-col>
-          <v-col cols="12" v-for="(x, index) in size_counter" :key="x">
-            <v-row>
-              <v-col cols="6">
-                <v-text-field
-                  v-model="size[index]"
-                  outlined
-                  dense
-                  placeholder="Size"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="6">
-                <v-text-field
-                  v-model="price[index]"
-                  outlined
-                  dense
-                  placeholder="Price"
-                ></v-text-field>
-              </v-col>
-            </v-row>
-          </v-col>
-          <v-col cols="12">
-            <v-textarea
-              outlined
-              dense
-              placeholder="Description"
-              v-model="register.description"
-            ></v-textarea>
-          </v-col>
-          <v-col cols="12">
-            <v-select
-              outlined
-              dense
-              v-model="register.category"
-              placeholder="Category"
-              :items="['Windows', 'Door', 'Tables', 'Aquarium']"
-            ></v-select>
-          </v-col>
-          <v-col cols="12">
-            <input
-              type="file"
-              id="fileInput"
-              ref="file"
-              @change="onFileUpload"
-            />
-          </v-col>
-          <v-col cols="12">
-            <v-row>
-              <v-col align="end">
-                <v-btn outlined class="rounded-lg" @click="isAdd = false"
-                  >Cancel</v-btn
-                >
-              </v-col>
-              <v-col>
-                <v-btn
-                  class="rounded-lg"
-                  color="secondary"
-                  @click="submitHandler"
-                  >Submit</v-btn
-                >
-              </v-col>
-            </v-row>
+          <v-col>
+            <v-btn @click="resetData"> Reset </v-btn>
           </v-col>
         </v-row>
-      </v-card>
-    </v-dialog>
-
-    <v-row>
-      <v-col>
-        <div>
-          <v-card class="pa-16" elevation="1" color="white">
-            <div>
-              Recently Sold
-            </div>
-            <v-data-table
-              :search="search"
-              class="pa-5"
-              :headers="headers"
-              :items="sales_data"
-              :loading="isLoading"
-            >
-              <template v-slot:loading>
-                <v-skeleton-loader
-                  v-for="n in 5"
-                  :key="n"
-                  type="list-item-avatar-two-line"
-                  class="my-2"
-                ></v-skeleton-loader>
-              </template>
-              <template #[`item.total_price`]="{ item }">
-                {{ item.quantity * item.price }}
-              </template>
-              <template #[`item.is_active`]="{ item }">
-                {{ item.is_active ? "Yes" : "No" }}
-              </template>
-              <template #[`item.image`]="{ item }">
-                <v-img :src="item.image" height="100" width="100"></v-img>
-              </template>
-              <template #[`item.opt`]="{ item }">
-                <v-menu offset-y z-index="1">
-                  <template v-slot:activator="{ attrs, on }">
-                    <v-btn icon v-bind="attrs" v-on="on">
-                      <v-icon>mdi-dots-horizontal</v-icon>
-                    </v-btn>
-                  </template>
-                  <v-list dense>
-                    <v-list-item @click.stop="statusUpdate(item, 'To Ship')">
-                      <v-list-item-content>
-                        <v-list-item-title>To Ship</v-list-item-title>
-                      </v-list-item-content>
-                    </v-list-item>
-                    <v-list-item @click.stop="statusUpdate(item, 'Pick up')">
-                      <v-list-item-content>
-                        <v-list-item-title>Pick up</v-list-item-title>
-                      </v-list-item-content>
-                    </v-list-item>
-                    <v-list-item @click.stop="statusUpdate(item, 'To Receive')">
-                      <v-list-item-content>
-                        <v-list-item-title>To Receive</v-list-item-title>
-                      </v-list-item-content>
-                    </v-list-item>
-                    <v-list-item @click.stop="statusUpdate(item, 'Delievered')">
-                      <v-list-item-content>
-                        <v-list-item-title>Delievered</v-list-item-title>
-                      </v-list-item-content>
-                    </v-list-item>
-                    <v-list-item @click.stop="statusUpdate(item, 'Complete')">
-                      <v-list-item-content>
-                        <v-list-item-title>Complete</v-list-item-title>
-                      </v-list-item-content>
-                    </v-list-item>
-                  </v-list>
-                </v-menu>
-              </template>
-            </v-data-table>
-            <div align="end">
-              <div>Total Amount: Php {{ total_sales }}</div>
-            </div>
-          </v-card>
-        </div>
-      </v-col>
-    </v-row>
-    <div></div>
-  </v-sheet>
+        <v-col>
+          <div>
+            <v-col align="end">
+              <v-btn @click="generateReceipt">
+                Generate PDF Report
+              </v-btn>
+            </v-col>
+            <v-card class="pa-16" elevation="1" color="white">
+              <div>
+                Recently Sold
+              </div>
+              <VueHtml2pdf :show-layout="false" :float-layout="true" :enable-download="true"
+                :paginate-elements-by-height="1400" filename="myPDF" :pdf-quality="2" :manual-pagination="false"
+                pdf-format="a4" pdf-orientation="portrait" pdf-content-width="800px" ref="html2Pdf">
+                <v-section slot="pdf-content">
+                  <v-data-table :search="search" class="pa-5" :headers="headers" :items="filteredData"
+                    :loading="isLoading">
+                    <template v-slot:loading>
+                      <v-skeleton-loader v-for="n in 5" :key="n" type="list-item-avatar-two-line"
+                        class="my-2"></v-skeleton-loader>
+                    </template>
+                    <template #[`item.total_price`]="{ item }">
+                      {{ item.quantity * item.price }}
+                    </template>
+                    <template #[`item.is_active`]="{ item }">
+                      {{ item.is_active ? "Yes" : "No" }}
+                    </template>
+                    <template #[`item.image`]="{ item }">
+                      <v-img :src="item.image" height="100" width="100"></v-img>
+                    </template>
+                    <template #[`item.opt`]="{ item }">
+                      <v-menu offset-y z-index="1">
+                        <template v-slot:activator="{ attrs, on }">
+                          <v-btn icon v-bind="attrs" v-on="on">
+                            <v-icon>mdi-dots-horizontal</v-icon>
+                          </v-btn>
+                        </template>
+                        <v-list dense>
+                          <v-list-item @click.stop="statusUpdate(item, 'To Ship')">
+                            <v-list-item-content>
+                              <v-list-item-title>To Ship</v-list-item-title>
+                            </v-list-item-content>
+                          </v-list-item>
+                          <v-list-item @click.stop="statusUpdate(item, 'Pick up')">
+                            <v-list-item-content>
+                              <v-list-item-title>Pick up</v-list-item-title>
+                            </v-list-item-content>
+                          </v-list-item>
+                          <v-list-item @click.stop="statusUpdate(item, 'To Receive')">
+                            <v-list-item-content>
+                              <v-list-item-title>To Receive</v-list-item-title>
+                            </v-list-item-content>
+                          </v-list-item>
+                          <v-list-item @click.stop="statusUpdate(item, 'Delievered')">
+                            <v-list-item-content>
+                              <v-list-item-title>Delievered</v-list-item-title>
+                            </v-list-item-content>
+                          </v-list-item>
+                          <v-list-item @click.stop="statusUpdate(item, 'Complete')">
+                            <v-list-item-content>
+                              <v-list-item-title>Complete</v-list-item-title>
+                            </v-list-item-content>
+                          </v-list-item>
+                        </v-list>
+                      </v-menu>
+                    </template>
+                  </v-data-table>
+                  </v-section>
+                  </VueHtml2pdf>
+                  <div>
+                    <v-data-table :search="search" class="pa-5" :headers="headers" :items="filteredData"
+                    :loading="isLoading">
+                    <template v-slot:loading>
+                      <v-skeleton-loader v-for="n in 5" :key="n" type="list-item-avatar-two-line"
+                        class="my-2"></v-skeleton-loader>
+                    </template>
+                    <template #[`item.total_price`]="{ item }">
+                      {{ item.quantity * item.price }}
+                    </template>
+                    <template #[`item.is_active`]="{ item }">
+                      {{ item.is_active ? "Yes" : "No" }}
+                    </template>
+                    <template #[`item.image`]="{ item }">
+                      <v-img :src="item.image" height="100" width="100"></v-img>
+                    </template>
+                    <template #[`item.opt`]="{ item }">
+                      <v-menu offset-y z-index="1">
+                        <template v-slot:activator="{ attrs, on }">
+                          <v-btn icon v-bind="attrs" v-on="on">
+                            <v-icon>mdi-dots-horizontal</v-icon>
+                          </v-btn>
+                        </template>
+                        <v-list dense>
+                          <v-list-item @click.stop="statusUpdate(item, 'To Ship')">
+                            <v-list-item-content>
+                              <v-list-item-title>To Ship</v-list-item-title>
+                            </v-list-item-content>
+                          </v-list-item>
+                          <v-list-item @click.stop="statusUpdate(item, 'Pick up')">
+                            <v-list-item-content>
+                              <v-list-item-title>Pick up</v-list-item-title>
+                            </v-list-item-content>
+                          </v-list-item>
+                          <v-list-item @click.stop="statusUpdate(item, 'To Receive')">
+                            <v-list-item-content>
+                              <v-list-item-title>To Receive</v-list-item-title>
+                            </v-list-item-content>
+                          </v-list-item>
+                          <v-list-item @click.stop="statusUpdate(item, 'Delievered')">
+                            <v-list-item-content>
+                              <v-list-item-title>Delievered</v-list-item-title>
+                            </v-list-item-content>
+                          </v-list-item>
+                          <v-list-item @click.stop="statusUpdate(item, 'Complete')">
+                            <v-list-item-content>
+                              <v-list-item-title>Complete</v-list-item-title>
+                            </v-list-item-content>
+                          </v-list-item>
+                        </v-list>
+                      </v-menu>
+                    </template>
+                  </v-data-table>
+                  </div>
+                  <div align="end">
+                    <div>Total Amount: Php {{ total_sales }}</div>
+                  </div>
+            </v-card>
+          </div>
+        </v-col>
+      </v-row>
+      <div></div>
+    </v-sheet>
   </div>
 </template>
 
 <script>
-import {mapState} from 'vuex';
+import VueHtml2pdf from "vue-html2pdf";
+import { mapState } from 'vuex';
 import VueToastr from "vue-toastr";
 import VueApexCharts from "vue-apexcharts";
 export default {
-   components: {
+  components: {
     VueApexCharts,
+    VueHtml2pdf
   },
-  computed:{
-    ...mapState('users',['users']),
+  computed: {
+    filteredData() {
+      if (this.date.from == "" || this.date.from == undefined) {
+        return this.sales_data;
+      } else {
+        // alert(this.date.from)
+        var date_from = this.$FormatDate(this.date.from);
+        var date_to = this.$FormatDate(this.date.to);
+        // return this.transaction_data.filter(data=?)
+        return this.sales_data.filter(
+          (data) =>
+            this.$FormatDate(data.date_from) > date_from &&
+            this.$FormatDate(data.date_from) < date_to
+        );
+      }
+    },
+    ...mapState('users', ['users']),
     ...mapState("product", ["product_data"]),
     ...mapState("transaction", ["transaction_data"]),
     ...mapState("quote", ["quote_data"]),
-    filteredData() {
-      return this.exercise_data.filter((data) => data.category == this.status);
-    },
     sales_data() {
       return this.transaction_data.filter(
         (data) => data.status == "Delievered"
@@ -439,13 +498,24 @@ export default {
       return a;
     },
   },
-  created(){
+  created() {
     this.$store.dispatch('users/view')
     this.$store.dispatch('product/view')
     this.$store.dispatch('transaction/view')
     this.$store.dispatch('quote/view')
   },
-   methods: {
+  methods: {
+    generateReceipt(item) {
+      this.selectedItem = item;
+      this.isGenerate = true;
+      this.$refs.html2Pdf.generatePdf();
+    },
+    resetData() {
+      this.date = {
+        from: "",
+        to: "",
+      };
+    },
     viewDetails(item) {
       this.selectedStatus = item.status;
       this.view_status = true;
@@ -569,6 +639,10 @@ export default {
   },
   data() {
     return {
+      date: {
+        from: "",
+        to: "",
+      },
       series: [
         {
           name: "series-1",
@@ -705,11 +779,8 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

@@ -330,6 +330,7 @@ export default {
           form_data.append("category", this.register.category);
           form_data.append("price", this.register.price);
           form_data.append("quantity", this.register.quantity);
+          form_data.append("status", this.register.status);
           form_data.append("description", this.register.description);
           await this.$store.dispatch("product/edit", form_data).then((res) => {
             this.$store.dispatch("size/add", {
@@ -369,6 +370,7 @@ export default {
         form_data.append("product_name", this.register.product_name);
         form_data.append("category", this.register.category);
         form_data.append("price", this.register.price);
+        form_data.append("status", this.register.status);
         form_data.append("quantity", this.register.quantity);
         form_data.append("description", this.register.description);
         await this.$store.dispatch("product/add", form_data).then((res) => {

@@ -4,16 +4,6 @@
       <v-card class="pa-10">
         <div>
           <div class="text-h5">Contact Information:</div>
-          <div><div>Address:</div>
-            <div>
-              <v-text-field outlined dense v-model="register.address"></v-text-field>
-            </div></div>
-          <div>
-            <div>Contact Number:</div>
-            <div>
-              <v-text-field outlined dense v-model="register.contact_number"></v-text-field>
-            </div>
-          </div>
           <div>
             Fullname: {{ $auth.user.firstname }} {{ $auth.user.lastname }}
           </div>
@@ -35,6 +25,16 @@
             </v-row>
           </div>
         </div>
+        <div><div>Address:</div>
+            <div>
+              <v-text-field outlined dense v-model="register.address"></v-text-field>
+            </div></div>
+          <div>
+            <div>Contact Number:</div>
+            <div>
+              <v-text-field outlined dense v-model="register.contact_number"></v-text-field>
+            </div>
+          </div>
         <div class="py-5">
           <v-divider></v-divider>
         </div>

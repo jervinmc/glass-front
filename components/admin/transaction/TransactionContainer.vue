@@ -391,14 +391,9 @@
                 </v-btn>
               </template>
               <v-list dense>
-                <v-list-item @click.stop="statusUpdate(item, 'To Ship')">
+                <v-list-item @click.stop="statusUpdate(item, 'Confirm')">
                   <v-list-item-content>
-                    <v-list-item-title>To Ship</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item @click.stop="statusUpdate(item, 'Picked up')">
-                  <v-list-item-content>
-                    <v-list-item-title>Picked up</v-list-item-title>
+                    <v-list-item-title>Confirm</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item @click.stop="statusUpdate(item, 'To Receive')">
@@ -655,7 +650,7 @@ export default {
         { text: "Status", value: "status" },
         { text: "Date Ordered", value: "date_from" },
         { text: "Contact Number", value: "contact_number" },
-        { text: "Address", value: "Address" },
+        { text: "Address", value: "address" },
         // { text: "Address", value: "address" },
         { text: "Actions", value: "opt" },
         ,
@@ -666,7 +661,7 @@ export default {
         { text: "Price", value: "price" },
         { text: "Quantity", value: "quantity" },
         { text: "Contact Number", value: "contact_number" },
-        { text: "Address", value: "Address" },
+        { text: "Address", value: "address" },
         { text: "Total Price", value: "total_price" },
         ,
       ],

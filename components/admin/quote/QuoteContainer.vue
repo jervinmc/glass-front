@@ -3,7 +3,7 @@
     <div class="black--text text-h5 pb-5">
       <v-row>
         <v-col>
-          <b>Quote Management</b>
+          <b>Customize Order Management</b>
         </v-col>
         <!-- <v-col align="end">
           <v-btn
@@ -24,7 +24,7 @@
             v-model="search"
             outlined
             dense
-            placeholder="Search Request No."
+            placeholder="Search"
           ></v-text-field>
         </div>
         <v-data-table

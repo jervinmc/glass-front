@@ -9,7 +9,7 @@
           <v-stepper-header>
             <v-stepper-step step="1" complete> Confirm </v-stepper-step>
             <v-divider></v-divider>
-            <v-stepper-step step="2" :complete="selectedStatus=='Picked up' || selectedStatus=='To Receive' || selectedStatus=='Delievered' || selectedStatus=='Completed'"> Picked up </v-stepper-step>
+            <v-stepper-step step="2" :complete="selectedStatus=='Picked up' || selectedStatus=='To Receive' || selectedStatus=='Confirm' || selectedStatus=='Delievered' || selectedStatus=='Completed'"> Picked up </v-stepper-step>
             <v-divider></v-divider>
             <v-stepper-step step="3" :complete="selectedStatus=='To Receive' || selectedStatus=='Delievered' || selectedStatus=='Completed'">To Receive</v-stepper-step>
             <v-divider></v-divider>
@@ -373,6 +373,10 @@ export default {
       view_status: false,
       size_counter: [],
       isAdd: false,
+      date:{
+        from:'',
+        to:''
+      },
       register: {
         size: [],
         price: [],

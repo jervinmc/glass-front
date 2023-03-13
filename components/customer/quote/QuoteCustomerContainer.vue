@@ -18,10 +18,10 @@
             outlined
           ></v-text-field>
         </div>
-        <div>Price:</div>
+        <!-- <div>Price:</div>
         <div>
           <v-text-field v-model="register.price" dense outlined></v-text-field>
-        </div>
+        </div> -->
         <div>Contact Number:</div>
         <div>
           <v-text-field
@@ -59,7 +59,7 @@
     <div class="black--text text-h5 pb-5">
       <v-row>
         <v-col>
-          <b>Quote Management</b>
+          <b>Customize Order Management</b>
         </v-col>
         <v-col align="end">
           <v-btn color="secondary" @click="isQuote = true" class="rounded-lg"

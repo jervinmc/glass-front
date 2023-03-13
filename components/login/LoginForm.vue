@@ -17,7 +17,7 @@
               align="center"
               class="pa-5 white--text"
             >
-            {{isForgotPassword ? 'Reset Password' : 'Login Now'}}   
+            {{isForgotPassword ? 'Reset Password' : 'Login Now as Admin'}}   
             </div>
             <div class="pa-5" align="start">
               <v-row>
@@ -128,6 +128,14 @@ export default {
         const response = await this.$auth.loginWith("local", {
           data: this.users,
         }).then(res=>{
+          if(this.$auth.account_type!='Admin'){
+            localStorage.clear()
+            alert('No account registered.')
+            this.$auth.logout()
+            
+            window.location.reload()
+            return
+          }
           if(this.$route.query.next=='cart'){
            location=`/customer/product_details?id=${this.$route.query.id}&&description=${this.$route.query.description}&&product_name=${this.$route.query.product_name}&&image=${this.$route.query.image}`
           }
