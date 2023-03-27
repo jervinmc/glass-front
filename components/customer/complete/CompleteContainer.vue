@@ -152,7 +152,7 @@
             v-model="search"
             outlined
             dense
-            placeholder="Search Request No."
+            placeholder="Search."
           ></v-text-field>
         </div>
         <v-data-table

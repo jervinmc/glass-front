@@ -128,7 +128,7 @@ export default {
         const response = await this.$auth.loginWith("local", {
           data: this.users,
         }).then(res=>{
-          if(this.$auth.account_type!='Admin'){
+          if(this.$auth.user.account_type!='Admin'){
             localStorage.clear()
             alert('No account registered.')
             this.$auth.logout()

@@ -335,6 +335,17 @@
                 :paginate-elements-by-height="1400" filename="myPDF" :pdf-quality="2" :manual-pagination="false"
                 pdf-format="a4" pdf-orientation="portrait" pdf-content-width="800px" ref="html2Pdf">
                 <v-section slot="pdf-content">
+                 <div align="center"> 
+                  <div >
+                    R&R Glass
+                  </div>
+                  <div>
+                    Product Report
+                  </div>
+                  <div>
+                    {{ date_from }} - {{ date_to }}
+                  </div>
+                 </div>
                   <v-data-table :search="search" class="pa-5" :headers="headers" :items="filteredData"
                     :loading="isLoading">
                     <template v-slot:loading>
@@ -387,6 +398,9 @@
                       </v-menu>
                     </template>
                   </v-data-table>
+                  <div align="center">
+                    <div>Total Amount: Php {{ total_sales }}</div>
+                  </div>
                   </v-section>
                   </VueHtml2pdf>
                   <div>
@@ -443,7 +457,7 @@
                     </template>
                   </v-data-table>
                   </div>
-                  <div align="end">
+                  <div align="end" >
                     <div>Total Amount: Php {{ total_sales }}</div>
                   </div>
             </v-card>

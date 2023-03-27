@@ -1,29 +1,28 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer
-      v-if="
-        $route.name != 'index' &&
-        $route.name != 'contact' &&
-        $route.name != 'redeem' &&
-        $route.name != 'login' &&
-        $route.name != 'verify' &&
-        $route.name != 'login-customer' &&
-        $route.name != 'register'
-      "
-      v-model="drawer"
-      color="#18242c"
-      fixed
-      app
-    >
+    <v-dialog v-model="isConfirmation" >
+      <v-card class="pa-10">
+        Your Item has been delievered. Please confirm the item.
+        <div>
+          <v-btn @click="isConfirmation=false">
+            Confirm
+          </v-btn>
+        </div>
+      </v-card>
+    </v-dialog>
+    <v-navigation-drawer v-if="
+      $route.name != 'index' &&
+      $route.name != 'contact' &&
+      $route.name != 'redeem' &&
+      $route.name != 'login' &&
+      $route.name != 'verify' &&
+      $route.name != 'login-customer' &&
+      $route.name != 'register' &&
+      $route.name != 'admin'
+    " v-model="drawer" color="#18242c" fixed app>
       <v-list class="pt-15" v-if="$auth.loggedIn">
-        <v-list-item
-          class="white--text"
-          v-for="(item, i) in $auth.user.account_type=='Admin' ? items_admin : items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
+        <v-list-item class="white--text" v-for="(item, i) in $auth.user.account_type == 'Admin' ? items_admin : items"
+          :key="i" :to="item.to" router exact>
           <v-list-item-action>
             <v-icon color="white">{{ item.icon }}</v-icon>
           </v-list-item-action>
@@ -41,31 +40,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar v-if="false" :clipped-left="clipped" fixed app>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn icon @click.stop="miniVariant = !miniVariant">
-        <v-icon>mdi-{{ `chevron-${miniVariant ? "right" : "left"}` }}</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="clipped = !clipped">
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="fixed = !fixed">
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title" />
-      <v-spacer />
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
-    </v-app-bar>
-    <!-- is not logged in yet -->
-    <v-app-bar
-      color="#18242c"
-      v-if="$auth.loggedIn"
-      :clipped-left="clipped"
-      fixed
-      app
-    >
+    <v-app-bar color="#18242c" v-if="$auth.loggedIn" :clipped-left="clipped" fixed app>
       <!-- <div align="start">
         <v-img
           class="pointer"
@@ -77,35 +52,18 @@
         />
       </div> -->
       <v-spacer />
-      <div
-        :class="
-          $route.name == 'redeem'
-            ? 'px-10 pointer secondary--text'
-            : 'px-10 pointer white--text'
-        "
-        @click="pushRoute('')"
-      >
+      <div :class="
+        $route.name == 'redeem'
+          ? 'px-10 pointer secondary--text'
+          : 'px-10 pointer white--text'
+      " @click="pushRoute('')">
         Home
       </div>
-      <div
-      v-if="$auth.user.account_type == 'Admin'"
-        :class="
-          $route.name == 'redeem'
-            ? 'px-10 pointer secondary--text'
-            : 'px-10 pointer white--text'
-        "
-        @click="routeLink('admin/dashboard')"
-      >
-        My Admin
-      </div>
-       <div
-        :class="
-          $route.name == 'redeem'
-            ? 'px-10 pointer secondary--text'
-            : 'px-10 pointer white--text'
-        "
-        @click="routeLink('profile')"
-      >
+      <div :class="
+        $route.name == 'redeem'
+          ? 'px-10 pointer secondary--text'
+          : 'px-10 pointer white--text'
+      " @click="routeLink('profile')">
         My Account
       </div>
       <div class="px-10 pointer">
@@ -114,94 +72,40 @@
         </v-btn>
       </div>
     </v-app-bar>
+
+    <v-app-bar color="#18242c" v-if="$route.name == 'admin'" :clipped-left="clipped" fixed app>
+      <v-spacer />
+    </v-app-bar>
     <v-app-bar color="#18242c" v-else :clipped-left="clipped" fixed app>
       <div align="start" class="white--text text-h5">
         <b @click="goIndex" class="pointer">R&R</b>
-        <!-- <v-img
-          class="pointer"
-          src="/logo.jpeg"
-          height="50"
-          width="100"
-          contain
-          @click="goIndex"
-        /> -->
       </div>
       <v-spacer />
-      <div
-        :class="
-          $route.name == 'contact'
-            ? 'px-10 pointer white--text'
-            : 'px-10 pointer white--text'
-        "
-        @click="pushRoute('contact')"
-      >
-        Contact Us
-      </div>
-      <!-- <div
-        :class="
+      <div v-if="$auth.loggedIn">
+        <div v-if="$auth.user.account_type == 'Admin'" :class="
           $route.name == 'redeem'
             ? 'px-10 pointer secondary--text'
             : 'px-10 pointer white--text'
-        "
-        @click="pushRoute('redeem')"
-      >
-        Products
-      </div> -->
-      <div
-        :class="
-          $route.name == 'login'
-            ? 'px-10 pointer secondary--text'
-            : 'px-10 pointer white--text'
-        "
-        @click="pushRoute('login')"
-        v-if="!$auth.loggedIn"
-      >
-        Login as Admin
+        " @click="routeLink('admin/dashboard')">
+          My Admin
+        </div>
       </div>
-      <div
-        :class="
-          $route.name == 'login'
-            ? 'px-10 pointer secondary--text'
-            : 'px-10 pointer white--text'
-        "
-        @click="pushRoute('login/customer')"
-        v-if="!$auth.loggedIn"
-      >
+      <div v-if="$auth.loggedIn && $auth.user.account_type!='Admin'" class='px-10 pointer white--text' @click="pushRoute('profile')">
+        My Account
+      </div>
+      <div :class="
+        $route.name == 'contact'
+          ? 'px-10 pointer white--text'
+          : 'px-10 pointer white--text'
+      " @click="pushRoute('contact')">
+        Contact Us
+      </div>
+      <div :class="
+        $route.name == 'login'
+          ? 'px-10 pointer secondary--text'
+          : 'px-10 pointer white--text'
+      " @click="pushRoute('login/customer')" v-if="!$auth.loggedIn">
         Login as Customer
-      </div>
-      <div
-        :class="
-          $route.name == 'client-profile'
-            ? 'px-10 pointer secondary--text'
-            : 'px-10 pointer white--text'
-        "
-        @click="pushRoute('client/profile')"
-        v-else
-      >
-        My Profile
-      </div>
-      <div class="mx-5" v-if="$auth.loggedIn">
-        <v-badge
-          color="secondary"
-          content="5"
-          right
-          overlap
-          transition="slide-x-transition"
-        >
-          <v-icon class="pointer">mdi-cart-outline</v-icon>
-        </v-badge>
-      </div>
-
-      <div v-if="$auth.loggedIn">
-        <v-badge
-          color="secondary"
-          content="99+"
-          right
-          overlap
-          transition="slide-x-transition"
-        >
-          <v-icon class="pointer">mdi-bell-outline</v-icon>
-        </v-badge>
       </div>
       <div class="px-10 pointer" v-if="!$auth.loggedIn">
         <v-btn dark depressed color="secondary" @click="pushRoute('register')">
@@ -271,27 +175,33 @@
 <script>
 import Pusher from 'pusher-js';
 export default {
-  created(){
+  created() {
     var pusher = new Pusher('33efacb6a0d9c7baad00', {
       cluster: 'ap1'
     });
     var channel = pusher.subscribe("notif");
-    channel.bind('my-test', function(data) {
-      if(data.message == this.$auth.user.id){
-        alert(data.title)
+    channel.bind('my-test', function (data) {
+      if (data.message == this.$auth.user.id) {
+        if(data.status=='Delievered'){
+          this.isConfirmation = true
+        }
+        else{
+          alert(data.title)
+        }
+        // alert(data.title)
       }
-      
-        // const res2 =  this.$axios
-        // .post(`/chatgetall/`, {"channel":"abc"},{
-        //   headers: {
-        //     Authorization: `Bearer ${localStorage.getItem('token')}`,
-        //   },
-        // })
-        // .then((rest) => {
-        //     this.chatList=rest.data
-        // })
-    //  alert(data)
-    },this);
+
+      // const res2 =  this.$axios
+      // .post(`/chatgetall/`, {"channel":"abc"},{
+      //   headers: {
+      //     Authorization: `Bearer ${localStorage.getItem('token')}`,
+      //   },
+      // })
+      // .then((rest) => {
+      //     this.chatList=rest.data
+      // })
+      //  alert(data)
+    }, this);
   },
   methods: {
     logout() {
@@ -312,6 +222,7 @@ export default {
   name: "DefaultLayout",
   data() {
     return {
+      isConfirmation:false,
       clipped: false,
       drawer: true,
       fixed: false,

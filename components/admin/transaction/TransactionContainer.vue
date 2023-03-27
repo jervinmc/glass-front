@@ -353,7 +353,7 @@
             v-model="search"
             outlined
             dense
-            placeholder="Search Request No."
+            placeholder="Search"
           ></v-text-field>
         </div>
         <v-data-table
@@ -486,7 +486,8 @@ export default {
         .dispatch("transaction/edit", { id: item.id, status: status })
         .then((res) => {
           this.$store.dispatch('transaction/notify',{
-            user_id:item.user_id, title:`Your item ID : ${item.id} is now ${status}`
+            user_id:item.user_id, title:`Your item ID : ${item.id} is now ${status}`,
+            status:status
           })
           // location.reload();
         });
