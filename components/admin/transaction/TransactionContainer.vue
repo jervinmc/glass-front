@@ -49,7 +49,7 @@
                 ></v-skeleton-loader>
               </template>
               <template #[`item.total_price`]="{ item }">
-                {{ item.quantity * item.price }}
+                {{ $FormatPrice(item.quantity * item.price) }}
               </template>
               <template #[`item.is_active`]="{ item }">
                 {{ item.is_active ? "Yes" : "No" }}
@@ -249,7 +249,7 @@
         <v-col>
           <b>Tracking Order</b>
         </v-col>
-        <v-col align="end">
+        <!-- <v-col align="end">
           <v-btn
             color="secondary"
             @click="isAdd = true"
@@ -257,7 +257,7 @@
             class="rounded-lg"
             >Add Product</v-btn
           >
-        </v-col>
+        </v-col> -->
       </v-row>
     </div>
     <div>
@@ -375,7 +375,10 @@
             {{ $FormatDate(item.date_from) }}
           </template>
           <template #[`item.total_price`]="{ item }">
-            {{ item.quantity * item.price }}
+            {{ $FormatPrice(item.quantity * item.price) }}
+          </template>
+          <template #[`item.price`]="{ item }">
+            {{ $FormatPrice( item.price) }}
           </template>
           <template #[`item.is_active`]="{ item }">
             {{ item.is_active ? "Yes" : "No" }}

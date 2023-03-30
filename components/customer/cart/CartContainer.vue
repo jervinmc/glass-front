@@ -217,7 +217,7 @@
             {{ item.is_active ? "Yes" : "No" }}
           </template>
           <template #[`item.total_price`]="{ item }">
-            {{ item.quantity * item.price }}
+            {{ $FormatPrice(item.quantity * item.price)}}
           </template>
           <template #[`item.quantity`]="{ item }">
           <v-icon @click="plus(item)">mdi-plus</v-icon>  <b>{{ item.quantity}}</b><v-icon color="red" @click="minus(item)">mdi-minus</v-icon> <v-icon color="red" @click="deleteItem(item)">mdi-delete</v-icon> 

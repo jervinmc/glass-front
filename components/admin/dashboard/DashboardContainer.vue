@@ -353,7 +353,7 @@
                         class="my-2"></v-skeleton-loader>
                     </template>
                     <template #[`item.total_price`]="{ item }">
-                      {{ item.quantity * item.price }}
+                      {{ $FormatPrice(item.quantity * item.price) }}
                     </template>
                     <template #[`item.is_active`]="{ item }">
                       {{ item.is_active ? "Yes" : "No" }}
@@ -411,7 +411,10 @@
                         class="my-2"></v-skeleton-loader>
                     </template>
                     <template #[`item.total_price`]="{ item }">
-                      {{ item.quantity * item.price }}
+                      {{ $FormatPrice(item.quantity * item.price) }}
+                    </template>
+                    <template #[`item.price`]="{ item }">
+                      {{ $FormatPrice( item.price) }}
                     </template>
                     <template #[`item.is_active`]="{ item }">
                       {{ item.is_active ? "Yes" : "No" }}
@@ -458,7 +461,7 @@
                   </v-data-table>
                   </div>
                   <div align="end" >
-                    <div>Total Amount: Php {{ total_sales }}</div>
+                    <div>Total Amount:  {{ $FormatPrice(total_sales) }}</div>
                   </div>
             </v-card>
           </div>

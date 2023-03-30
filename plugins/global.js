@@ -4,7 +4,7 @@ export default ({ app }, inject) => {
 
     inject('FormatPrice', value => {
         let val = (value / 1).toFixed(2).replace(",", ".");
-        return 'Php'+ ' ' + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return '₱'+ ' ' + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }),
     inject('StatusColor', value => {
         if (value == "Rejected") {

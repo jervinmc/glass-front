@@ -182,7 +182,7 @@
             {{ item.is_active ? "Yes" : "No" }}
           </template>
           <template #[`item.total_price`]="{ item }">
-            {{ item.quantity * item.price }}
+            {{ $FormatPrice(item.quantity * item.price) }}
           </template>
           <template #[`item.image`]="{ item }">
             <v-img :src="item.image" height="100" width="100"></v-img>

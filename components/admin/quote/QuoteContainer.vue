@@ -42,8 +42,8 @@
               class="my-2"
             ></v-skeleton-loader>
           </template>
-           <template #[`item.total_price`]="{ item }">
-            {{ item.quantity * item.price}}
+           <template #[`item.price`]="{ item }">
+            {{ $FormatPrice(item.price)}}
           </template>
           <template #[`item.is_active`]="{ item }">
             {{ item.is_active ? "Yes" : "No" }}
