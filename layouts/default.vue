@@ -105,7 +105,7 @@
           ? 'px-10 pointer secondary--text'
           : 'px-10 pointer white--text'
       " @click="pushRoute('login/customer')" v-if="!$auth.loggedIn">
-        Login as Customer
+        Login
       </div>
       <div class="px-10 pointer" v-if="!$auth.loggedIn">
         <v-btn dark depressed color="secondary" @click="pushRoute('register')">
