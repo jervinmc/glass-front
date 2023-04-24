@@ -1,4 +1,36 @@
 /*!
+ * vue-toastr v2.1.2 
+ * (c) 2019 s4l1h
+ * Released under the MIT License.
+ */
+
+
+/*!
+ * Pusher JavaScript Library v8.0.1
+ * https://pusher.com/
+ *
+ * Copyright 2020, Pusher
+ * Released under the MIT licence.
+ */
+
+/*!
+ * vue-client-only v0.0.0-semantic-release
+ * (c) 2021-present egoist <0x142857@gmail.com>
+ * Released under the MIT License.
+ */
+
+/*!
+ * vue-no-ssr v1.1.1
+ * (c) 2018-present egoist <0x142857@gmail.com>
+ * Released under the MIT License.
+ */
+
+//! moment.js
+
+//! moment.js locale configuration
+
+
+/*!
  * @overview es6-promise - a tiny implementation of Promises/A+.
  * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
  * @license   Licensed under MIT license
@@ -16,12 +48,6 @@
  * html2canvas 1.4.1 <https://html2canvas.hertzen.com>
  * Copyright (c) 2022 Niklas von Hertzen <https://hertzen.com>
  * Released under MIT License
- */
-
-/*!
- * vue-toastr v2.1.2 
- * (c) 2019 s4l1h
- * Released under the MIT License.
  */
 
 /*! *****************************************************************************
@@ -143,16 +169,6 @@
  */
 
 
-/**@preserve
-   *  ====================================================================
-   * jsPDF PNG PlugIn
-   * Copyright (c) 2014 James Robb, https://github.com/jamesbrobb
-   *
-   * 
-   * ====================================================================
-   */
-
-
 /*!
   * vue-router v3.5.4
   * (c) 2022 Evan You
@@ -178,34 +194,8 @@
  * @license MIT
  */
 
-
 /*!
  * vue-toastr v2.1.2 
  * (c) 2019 s4l1h
  * Released under the MIT License.
  */
-
-
-/*!
- * Pusher JavaScript Library v8.0.1
- * https://pusher.com/
- *
- * Copyright 2020, Pusher
- * Released under the MIT licence.
- */
-
-/*!
- * vue-client-only v0.0.0-semantic-release
- * (c) 2021-present egoist <0x142857@gmail.com>
- * Released under the MIT License.
- */
-
-/*!
- * vue-no-ssr v1.1.1
- * (c) 2018-present egoist <0x142857@gmail.com>
- * Released under the MIT License.
- */
-
-//! moment.js
-
-//! moment.js locale configuration

@@ -1,5 +1,20 @@
 <template>
   <v-sheet class="pa-10" color="">
+    <v-dialog v-model="isConfirm" >
+      <v-card class="pa-10">
+        <div>
+          Please enter price:
+          <div class="pt-10">
+            <v-text-field outlined v-model="price"></v-text-field>
+          </div>
+          <v-row>
+            <v-col>
+              <v-btn @click="statusUpdate(item, status)">Confirm</v-btn>
+            </v-col>
+          </v-row>
+        </div>
+      </v-card>
+    </v-dialog>
     <div class="black--text text-h5 pb-5">
       <v-row>
         <v-col>
@@ -19,31 +34,14 @@
     <div>
       <v-card class="pa-16" elevation="1" color="white">
         <div class="pt-10">
-          <v-text-field
-            hide-details
-            v-model="search"
-            outlined
-            dense
-            placeholder="Search"
-          ></v-text-field>
+          <v-text-field hide-details v-model="search" outlined dense placeholder="Search"></v-text-field>
         </div>
-        <v-data-table
-          :search="search"
-          class="pa-5"
-          :headers="headers"
-          :items="quote_data"
-          :loading="isLoading"
-        >
+        <v-data-table :search="search" class="pa-5" :headers="headers" :items="quote_data" :loading="isLoading">
           <template v-slot:loading>
-            <v-skeleton-loader
-              v-for="n in 5"
-              :key="n"
-              type="list-item-avatar-two-line"
-              class="my-2"
-            ></v-skeleton-loader>
+            <v-skeleton-loader v-for="n in 5" :key="n" type="list-item-avatar-two-line" class="my-2"></v-skeleton-loader>
           </template>
-           <template #[`item.price`]="{ item }">
-            {{ $FormatPrice(item.price)}}
+          <template #[`item.price`]="{ item }">
+            {{ $FormatPrice(item.price) }}
           </template>
           <template #[`item.is_active`]="{ item }">
             {{ item.is_active ? "Yes" : "No" }}
@@ -59,12 +57,12 @@
                 </v-btn>
               </template>
               <v-list dense>
-                <v-list-item @click.stop="statusUpdate(item, 'Confirm')">
+                <v-list-item @click.stop="statusUpdateDialog(item, 'Confirm')">
                   <v-list-item-content>
                     <v-list-item-title>Confirm</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
-                 <v-list-item @click.stop="statusUpdate(item, 'Cancel')">
+                <v-list-item @click.stop="statusUpdate(item, 'Cancel')">
                   <v-list-item-content>
                     <v-list-item-title>Cancel</v-list-item-title>
                   </v-list-item-content>
@@ -103,25 +101,44 @@ export default {
     },
   },
   methods: {
+    statusUpdateDialog(item, status) {
+      this.isConfirm = true
+      this.item = item
+      this.status = status
+    },
     viewDetails(item) {
       this.selectedStatus = item.status;
       this.view_status = true;
     },
-    statusUpdate(item,status){
-      this.$store.dispatch('quote/edit',{id:item.id,status:status}).then(res=>{
+    statusUpdate(item, status) {
+      console.log(item)
+      let data = {
+        product_name: item.product_name,
+        quantity: 1,
+        size: 'Any',
+        variant: 'Any',
+        price: this.price,
+        size: 'Any',
+        product_id: 0,
+        user_id: item.user_id
+      }
+      this.$store.dispatch('quote/edit', { id: item.id, status: status }).then(res => {
+        // location.reload()
+      })
+      this.$store.dispatch('cart/add', data).then(res => {
         location.reload()
       })
     },
-    updateSize(operation){
-      if(operation=='+'){
+    updateSize(operation) {
+      if (operation == '+') {
         this.size_counter.push('')
         this.size.push('')
         this.price.push('')
       }
-      else{
-        this.size_counter.splice(0,1)
-        this.size.splice(0,1)
-        this.price.splice(0,1)
+      else {
+        this.size_counter.splice(0, 1)
+        this.size.splice(0, 1)
+        this.price.splice(0, 1)
       }
     },
     async submitHandler() {
@@ -200,13 +217,17 @@ export default {
   },
   data() {
     return {
-      selectedStatus:'Pending',
-      view_status:false,
-      size_counter:[],
+      item: {},
+      price: 0,
+      isConfirm: false,
+      status: '',
+      selectedStatus: 'Pending',
+      view_status: false,
+      size_counter: [],
       isAdd: false,
       register: {
-        size:[],
-        price:[],
+        size: [],
+        price: [],
       },
       addForm: false,
       isConfirmationApprove: false,
@@ -216,8 +237,8 @@ export default {
       file: "",
       addForm: false,
       editForm: false,
-      size:[],
-      price:[],
+      size: [],
+      price: [],
       account_type: "Resident",
       selectedItem: {},
       status: "Easy",
@@ -237,7 +258,7 @@ export default {
         { text: "Message", value: "message" },
         { text: "Fullname", value: "fullname" },
         { text: "Contact Number", value: "contact_number" },
-        { text: "Price", value: "price" },
+        // { text: "Price", value: "price" },
         { text: "Status", value: "status" },
         { text: "Image", value: "image" },
         // { text: "Address", value: "address" },
@@ -249,5 +270,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
